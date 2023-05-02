@@ -6,13 +6,6 @@ const axiosInstance = axios.create({
   baseURL: API_BASE_URL
 })
 
-// TODO: Implement returnPath
-const loginPage = () => {
-  window.location.href = `/auth/login?returnPath=${encodeURIComponent(
-    window.location.pathname + window.location.search
-  )}`
-}
-
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -33,7 +26,6 @@ axiosInstance.interceptors.response.use(
       } catch (err) {
         setAccessToken()
         setRefreshToken()
-        loginPage()
       }
     }
     return Promise.reject(error)
