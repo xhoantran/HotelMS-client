@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { API_BASE_URL } from 'config'
 import useAuth from 'stores/useAuth'
-import { setAccessToken, setRefreshToken } from 'utils/jwt'
+import { setAccessToken } from 'utils/jwt'
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL
@@ -22,7 +22,6 @@ axiosInstance.interceptors.response.use(
         )
         axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.access}`
         setAccessToken(data.access)
-        setRefreshToken(data.refresh)
         return axiosInstance(originalRequest)
       } catch (err) {
         useAuth.getState().logout()
