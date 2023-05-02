@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { HOST_API } from 'config'
+import { API_BASE_URL } from 'config'
 import { setAccessToken, setRefreshToken } from 'utils/jwt'
 
 const axiosInstance = axios.create({
-  baseURL: HOST_API
+  baseURL: API_BASE_URL
 })
 
 // TODO: Implement returnPath
