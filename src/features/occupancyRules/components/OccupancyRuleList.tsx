@@ -41,7 +41,7 @@ export function OccupancyRuleList(props: IOccupancyRuleListProps) {
             'pointer-events-none cursor-not-allowed opacity-50'
         )}
       >
-        <div className="col-span-5">
+        <div className="col-span-6">
           <div className="rounded-md ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-300">
               <thead>

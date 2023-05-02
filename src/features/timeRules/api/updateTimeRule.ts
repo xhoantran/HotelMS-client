@@ -12,6 +12,7 @@ export type UpdateTimeRuleDTO = {
   data: {
     hour: number
     minute: number
+    dayAhead: number
     minOccupancy: number
     maxOccupancy: number
     percentageFactor: number
@@ -43,7 +44,7 @@ export const useUpdateTimeRule = ({
       queryClient.invalidateQueries(['dynamicPricingSetting', data.setting])
       addNotification({
         type: 'success',
-        title: 'Time Rule Updated'
+        title: 'Time based trigger rule updated successfully'
       })
     },
     ...config,

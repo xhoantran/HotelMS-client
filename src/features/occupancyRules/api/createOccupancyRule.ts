@@ -40,7 +40,7 @@ export const useCreateOccupancyRule = ({
       queryClient.invalidateQueries(['dynamicPricingSetting', data.setting])
       addNotification({
         type: 'success',
-        title: 'Occupancy Rule Created'
+        title: 'Occupancy rule created successfully'
       })
     },
     ...config,

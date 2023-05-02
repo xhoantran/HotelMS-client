@@ -34,26 +34,26 @@ export function TimeRuleList(props: ITimeRuleListProps) {
           !isTimeBased && 'pointer-events-none cursor-not-allowed opacity-50'
         )}
       >
-        <div className="col-span-5">
+        <div className="col-span-6">
           <div className="rounded-md ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
                   <th
                     scope="col"
-                    className="w-1/5 py-3 pl-3 text-center text-sm font-semibold text-gray-900"
+                    className="py-3 pl-3 text-center text-sm font-semibold text-gray-900"
                   >
-                    Trigger Time
+                    Time
                   </th>
                   <th
                     scope="col"
-                    className="max-w-1/3 p-3 text-center text-sm font-semibold text-gray-900"
+                    className="p-3 text-center text-sm font-semibold text-gray-900"
                   >
                     Occupancy
                   </th>
                   <th
                     scope="col"
-                    className="max-w-1/3 p-3 text-center text-sm font-semibold text-gray-900"
+                    className="p-3 text-center text-sm font-semibold text-gray-900"
                   >
                     Factor
                   </th>

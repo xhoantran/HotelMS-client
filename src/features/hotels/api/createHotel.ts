@@ -38,12 +38,16 @@ export const useCreateHotel = ({ config }: useCreateHotelOptions = {}) => {
       if (context?.previousHotels) {
         queryClient.setQueryData(['hotels'], context.previousHotels)
       }
+      addNotification({
+        type: 'error',
+        title: 'Hotel creation failed'
+      })
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['hotels'])
       addNotification({
         type: 'success',
-        title: 'Hotel Created'
+        title: 'Hotel created successfully'
       })
     },
     ...config,

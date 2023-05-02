@@ -1,4 +1,5 @@
 import { XCircleIcon } from '@heroicons/react/20/solid'
+import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AxiosError } from 'axios'
 import clsx from 'clsx'
@@ -20,6 +21,7 @@ const CreateTimeRuleSchema = Yup.object().shape({
     .required('Minute is required')
     .min(0, 'Minute must be greater than or equal to 0')
     .max(59, 'Minute must be less than or equal to 59'),
+  dayAhead: Yup.number().oneOf([0, 1], 'Day ahead must be either 0 or 1'),
   minOccupancy: Yup.number()
     .integer("Minimum occupancy can't be a decimal number")
     .required('Minimum occupancy is required'),
@@ -52,6 +54,7 @@ export function CreateTimeRule(props: CreateTimeRuleProps) {
     setting: props.dynamicPricingSettingUuid,
     hour: 0,
     minute: 0,
+    dayAhead: 0,
     minOccupancy: 0,
     maxOccupancy: 0,
     factor: 0,
@@ -83,6 +86,7 @@ export function CreateTimeRule(props: CreateTimeRuleProps) {
           setting: values.setting,
           hour: values.hour,
           minute: values.minute,
+          dayAhead: values.dayAhead,
           minOccupancy: values.minOccupancy,
           maxOccupancy: values.maxOccupancy,
           incrementFactor: values.isPercentage ? 0 : values.factor,
@@ -170,6 +174,15 @@ export function CreateTimeRule(props: CreateTimeRuleProps) {
                     id="minute"
                     className="block rounded-md border-0 px-1 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
                   />
+                  <select
+                    {...register('dayAhead')}
+                    id="dayAhead"
+                    className="block w-24 rounded-md border-0 px-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    defaultValue="Today"
+                  >
+                    <option value={0}>Today</option>
+                    <option value={1}>Tomorrow</option>
+                  </select>
                 </div>
               </td>
               <td className="p-3 text-center text-sm text-gray-500">
@@ -233,14 +246,22 @@ export function CreateTimeRule(props: CreateTimeRuleProps) {
                     )}
                     onClick={onSubmit}
                   >
-                    Save
+                    <CheckIcon
+                      className="block h-4 w-4 stroke-[3px] lg:hidden"
+                      aria-hidden="true"
+                    />
+                    <span className="hidden lg:block">Save</span>
                   </button>
                   <button
                     type="button"
                     className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
                     onClick={closeSlideOver}
                   >
-                    Cancel
+                    <XMarkIcon
+                      className="block h-4 w-4 stroke-[2px] lg:hidden"
+                      aria-hidden="true"
+                    />
+                    <span className="hidden lg:block">Cancel</span>
                   </button>
                 </div>
               </td>

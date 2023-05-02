@@ -34,12 +34,16 @@ export const useDeleteHotel = ({ config }: UseDeleteHotelOptions = {}) => {
       if (context?.previousHotels) {
         queryClient.setQueryData(['hotels'], context.previousHotels)
       }
+      addNotification({
+        type: 'error',
+        title: 'Hotel deletion failed'
+      })
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['hotels'])
       addNotification({
         type: 'success',
-        title: 'Hotel Deleted'
+        title: 'Hotel deleted successfully'
       })
     },
     ...config,

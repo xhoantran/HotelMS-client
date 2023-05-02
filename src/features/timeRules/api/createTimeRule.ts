@@ -13,6 +13,7 @@ export type CreateTimeRuleDTO = {
     setting: string
     hour: number
     minute: number
+    dayAhead: number
     minOccupancy: number
     maxOccupancy: number
     percentageFactor: number
@@ -43,7 +44,7 @@ export const useCreateTimeRule = ({
       queryClient.invalidateQueries(['dynamicPricingSetting', data.setting])
       addNotification({
         type: 'success',
-        title: 'Time Rule Created'
+        title: 'Time based trigger rule created successfully'
       })
     },
     ...config,

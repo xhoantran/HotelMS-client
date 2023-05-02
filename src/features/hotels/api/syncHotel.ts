@@ -23,12 +23,16 @@ export const useSyncHotel = ({ config }: useSyncHotelOptions = {}) => {
       if (context?.previousHotels) {
         queryClient.setQueryData(['hotels'], context.previousHotels)
       }
+      addNotification({
+        type: 'error',
+        title: 'Hotel sync failed'
+      })
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['hotels'])
       addNotification({
         type: 'success',
-        title: 'Hotel Synced'
+        title: 'Hotel synced successfully'
       })
     },
     ...config,

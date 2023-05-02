@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import * as Yup from 'yup'
+import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import { useCreateOccupancyRule } from '../api/createOccupancyRule'
 
@@ -181,14 +182,22 @@ export function CreateOccupancyRule(props: CreateOccupancyRuleProps) {
                     )}
                     onClick={onSubmit}
                   >
-                    Save
+                    <CheckIcon
+                      className="block h-4 w-4 stroke-[3px] lg:hidden"
+                      aria-hidden="true"
+                    />
+                    <span className="hidden lg:block">Save</span>
                   </button>
                   <button
                     type="button"
                     className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
                     onClick={closeSlideOver}
                   >
-                    Cancel
+                    <XMarkIcon
+                      className="block h-4 w-4 stroke-[2px] lg:hidden"
+                      aria-hidden="true"
+                    />
+                    <span className="hidden lg:block">Cancel</span>
                   </button>
                 </div>
               </td>
