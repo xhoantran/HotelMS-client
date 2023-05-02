@@ -37,7 +37,8 @@ export function OccupancyRuleList(props: IOccupancyRuleListProps) {
       <div
         className={clsx(
           'grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2',
-          !isOccupancyBased && 'cursor-not-allowed opacity-50'
+          !isOccupancyBased &&
+            'pointer-events-none cursor-not-allowed opacity-50'
         )}
       >
         <div className="col-span-5">
