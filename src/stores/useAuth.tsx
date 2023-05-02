@@ -3,7 +3,6 @@ import { setAccessToken, setRefreshToken, isValidToken } from 'utils/jwt'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import { useEffect } from 'react'
-import baseAxios from 'axios'
 
 interface IAuthState {
   isAuthenticated: boolean
@@ -67,30 +66,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const access_token = localStorage.getItem('accessToken')
-      const refresh_token = localStorage.getItem('refreshToken')
-      // Initialize using access_token
       if (access_token && isValidToken(access_token)) {
         setAccessToken(access_token)
         me()
-      } else if (refresh_token && isValidToken(refresh_token)) {
-        baseAxios
-          .post('/api-auth/v1/token/refresh/', {
-            refresh: refresh_token
-          })
-          .then(({ data }) => {
-            setAccessToken(data.access)
-            setRefreshToken(data.refresh)
-            me()
-          })
-          .catch(() => {
-            setAccessToken()
-            setRefreshToken()
-          })
-        // Ehh
-      } else {
-        setAccessToken()
-        setRefreshToken()
-        logout()
       }
     } catch (error) {
       setAccessToken()
