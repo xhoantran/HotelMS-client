@@ -13,8 +13,11 @@ import type { IOccupancyBasedTriggerRule } from '../types'
 
 const UpdateOccupancyRuleSchema = Yup.object().shape({
   setting: Yup.string().required('Setting is required'),
-  minOccupancy: Yup.number().required('Minimum occupancy is required'),
+  minOccupancy: Yup.number()
+    .integer("Minimum occupancy can't be a decimal number")
+    .required('Minimum occupancy is required'),
   factor: Yup.number()
+    .integer("Factor can't be a decimal number")
     .required('Factor is required')
     .notOneOf([0], 'Factor cannot be 0'),
   isPercentage: Yup.boolean().required(

@@ -11,21 +11,27 @@ import { useCreateTimeRule } from '../api/createTimeRule'
 const CreateTimeRuleSchema = Yup.object().shape({
   setting: Yup.string().required('Setting is required'),
   hour: Yup.number()
+    .integer("Hour can't be a decimal number")
     .required('Hour is required')
     .min(0, 'Hour must be greater than or equal to 0')
     .max(23, 'Hour must be less than or equal to 23'),
   minute: Yup.number()
+    .integer("Minute can't be a decimal number")
     .required('Minute is required')
     .min(0, 'Minute must be greater than or equal to 0')
     .max(59, 'Minute must be less than or equal to 59'),
-  minOccupancy: Yup.number().required('Minimum occupancy is required'),
+  minOccupancy: Yup.number()
+    .integer("Minimum occupancy can't be a decimal number")
+    .required('Minimum occupancy is required'),
   maxOccupancy: Yup.number()
+    .integer("Maximum occupancy can't be a decimal number")
     .required('Maximum occupancy is required')
     .moreThan(
       Yup.ref('minOccupancy'),
       'Maximum occupancy must be greater than minimum occupancy'
     ),
   factor: Yup.number()
+    .integer("Factor can't be a decimal number")
     .required('Factor is required')
     .notOneOf([0], 'Factor cannot be 0'),
   isPercentage: Yup.boolean().required(
