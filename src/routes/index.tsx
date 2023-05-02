@@ -20,6 +20,9 @@ const Login = Loadable(lazy(() => import('features/auth/Login')))
 const ResetPassword = Loadable(
   lazy(() => import('features/auth/ResetPassword'))
 )
+const ResetPasswordConfirm = Loadable(
+  lazy(() => import('features/auth/ResetPasswordConfirm'))
+)
 const EmailConfirm = Loadable(lazy(() => import('features/auth/EmailConfirm')))
 
 // DASHBOARD
@@ -53,6 +56,14 @@ const router = createBrowserRouter([
         element: (
           <GuestGuard>
             <ResetPassword />
+          </GuestGuard>
+        )
+      },
+      {
+        path: 'password-reset-confirm',
+        element: (
+          <GuestGuard>
+            <ResetPasswordConfirm />
           </GuestGuard>
         )
       },

@@ -3,6 +3,14 @@ import { setAccessToken, setRefreshToken, isValidToken } from 'utils/jwt'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import { useEffect } from 'react'
+import snakify from 'utils/snakify'
+
+interface IResetPasswordConfirm {
+  uid: string
+  token: string
+  newPassword1: string
+  newPassword2: string
+}
 
 interface IAuthState {
   isAuthenticated: boolean
@@ -14,6 +22,8 @@ interface IAuthState {
   }
   login: (email: string, password: string) => Promise<void | Error>
   verifyEmail: (key: string) => Promise<void | Error>
+  requestResetPassword: (email: string) => Promise<void>
+  resetPasswordConfirm: (data: IResetPasswordConfirm) => Promise<void | Error>
   logout: () => void
   me: () => Promise<void | Error>
 }
@@ -43,6 +53,17 @@ const useAuth = create<IAuthState>()(
           await axios.post('/api-auth/v1/registration/verify-email/', {
             key
           })
+        },
+        requestResetPassword: async (email) => {
+          await axios.post('/api-auth/v1/password/reset/', {
+            email
+          })
+        },
+        resetPasswordConfirm: async (data) => {
+          await axios.post(
+            '/api-auth/v1/password/reset/confirm/',
+            snakify(data)
+          )
         },
         logout: () => {
           set({ isAuthenticated: false })
