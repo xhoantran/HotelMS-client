@@ -11,13 +11,20 @@ export function HotelGeneral(props: HotelGeneralProps) {
     <div className="space-y-12">
       <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3">
         <div>
-          <h2 className="text-base font-semibold leading-7 text-gray-900">Information</h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">This information was synced from your PMS.</p>
+          <h2 className="text-base font-semibold leading-7 text-gray-900">
+            Information
+          </h2>
+          <p className="mt-1 text-sm leading-6 text-gray-600">
+            This information was synced from your PMS.
+          </p>
         </div>
 
         <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
           <div className="sm:col-span-2">
-            <label htmlFor="pms" className="block text-sm font-medium leading-6 text-gray-900">
+            <label
+              htmlFor="pms"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
               PMS
             </label>
             <div className="mt-2">
@@ -34,7 +41,10 @@ export function HotelGeneral(props: HotelGeneralProps) {
           </div>
 
           <div className="sm:col-span-4">
-            <label htmlFor="property-id" className="block text-sm font-medium leading-6 text-gray-900">
+            <label
+              htmlFor="property-id"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
               Property ID
             </label>
             <div className="mt-2">
@@ -51,7 +61,10 @@ export function HotelGeneral(props: HotelGeneralProps) {
           </div>
 
           <div className="col-span-full">
-            <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
+            <label
+              htmlFor="street-address"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
               Street address
             </label>
             <div className="mt-2">
@@ -68,7 +81,10 @@ export function HotelGeneral(props: HotelGeneralProps) {
           </div>
 
           <div className="sm:col-span-3">
-            <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
+            <label
+              htmlFor="city"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
               City
             </label>
             <div className="mt-2">
@@ -85,7 +101,10 @@ export function HotelGeneral(props: HotelGeneralProps) {
           </div>
 
           <div className="sm:col-span-3">
-            <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
+            <label
+              htmlFor="country"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
               Country
             </label>
             <div className="mt-2">
@@ -102,7 +121,10 @@ export function HotelGeneral(props: HotelGeneralProps) {
           </div>
 
           <div className="sm:col-span-1 sm:col-start-1">
-            <label htmlFor="currency" className="block text-sm font-medium leading-6 text-gray-900">
+            <label
+              htmlFor="currency"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
               Currency
             </label>
             <div className="mt-2">
@@ -119,7 +141,10 @@ export function HotelGeneral(props: HotelGeneralProps) {
           </div>
 
           <div className="sm:col-span-2 sm:col-start-1">
-            <label htmlFor="timezone" className="block text-sm font-medium leading-6 text-gray-900">
+            <label
+              htmlFor="timezone"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
               Timezone
             </label>
             <div className="mt-2">

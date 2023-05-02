@@ -1,6 +1,6 @@
-import { HotelsList } from '../components/HotelsList';
-import { CreateHotel } from '../components/CreateHotel';
-import { Head } from 'components/Head';
+import { HotelsList } from '../components/HotelsList'
+import { CreateHotel } from '../components/CreateHotel'
+import { Head } from 'components/Head'
 
 export function Hotels() {
   return (
@@ -21,9 +21,9 @@ export function Hotels() {
             <CreateHotel />
           </div>
         </div>
-        
+
         <HotelsList />
       </div>
     </>
-  );
+  )
 }

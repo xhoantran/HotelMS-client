@@ -1,54 +1,54 @@
 import {
   ExclamationCircleIcon,
-  CheckCircleIcon,
-} from '@heroicons/react/24/outline';
-import Page from 'components/Page';
-import { useEffect, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { PATH_AUTH } from 'routes/paths';
-import useAuth from 'stores/useAuth';
+  CheckCircleIcon
+} from '@heroicons/react/24/outline'
+import Page from 'components/Page'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { PATH_AUTH } from 'routes/paths'
+import useAuth from 'stores/useAuth'
 
 const EmailConfirm = () => {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
     'loading'
-  );
-  const [countdown, setCountdown] = useState(4);
-  const navigate = useNavigate();
-  const { verifyEmail } = useAuth();
-  const [searchParams] = useSearchParams();
+  )
+  const [countdown, setCountdown] = useState(4)
+  const navigate = useNavigate()
+  const { verifyEmail } = useAuth()
+  const [searchParams] = useSearchParams()
 
   useEffect(() => {
-    const key = searchParams.get('key');
+    const key = searchParams.get('key')
     if (typeof key === 'string' && key.length > 0) {
       verifyEmail(key)
         .then(() => {
-          setStatus('success');
+          setStatus('success')
         })
         .catch(() => {
-          setStatus('error');
-        });
+          setStatus('error')
+        })
     } else {
-      setStatus('error');
+      setStatus('error')
     }
-  }, [searchParams]);
+  }, [searchParams])
 
   useEffect(() => {
     if (status === 'success') {
       const timer = setTimeout(() => {
-        setCountdown(prev => prev - 1);
-      }, 1000);
+        setCountdown((prev) => prev - 1)
+      }, 1000)
 
       if (countdown === 0) {
-        navigate(PATH_AUTH.login);
+        navigate(PATH_AUTH.login)
       }
 
-      return () => clearTimeout(timer);
+      return () => clearTimeout(timer)
     }
-  }, [status, countdown]);
+  }, [status, countdown])
 
   return (
     <Page title="Confirm email - Hanz">
-      <div className="min-h-full flex flex-col items-center justify-center mx-auto w-full max-w-sm lg:w-96">
+      <div className="mx-auto flex min-h-full w-full max-w-sm flex-col items-center justify-center lg:w-96">
         {status === 'loading' ? (
           <>
             <h2 className="text-3xl font-bold text-gray-900">
@@ -57,7 +57,7 @@ const EmailConfirm = () => {
 
             <div className="mt-4">
               <svg
-                className="animate-spin -ml-1 mr-3 h-10 w-10 text-blue-600"
+                className="-ml-1 mr-3 h-10 w-10 animate-spin text-blue-600"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -80,24 +80,24 @@ const EmailConfirm = () => {
           </>
         ) : status === 'success' ? (
           <>
-            <CheckCircleIcon className="text-green-500 h-20" />
+            <CheckCircleIcon className="h-20 text-green-500" />
             <h2 className="text-3xl font-bold text-gray-900">
               Redirect in {countdown}...
             </h2>
           </>
         ) : (
           <>
-            <ExclamationCircleIcon className="text-red-500 h-20" />
+            <ExclamationCircleIcon className="h-20 text-red-500" />
             <h2 className="mt-4 text-3xl font-bold text-gray-900">
               Something went wrong
             </h2>
-            <p className="mt-4 text-gray-500 text-center">
+            <p className="mt-4 text-center text-gray-500">
               This link is invalid or expired.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-8">
               <Link
                 to={PATH_AUTH.login}
-                className="text-blue-600 text-sm font-medium "
+                className="text-sm font-medium text-blue-600 "
               >
                 <span aria-hidden="true">&larr;</span> Return to sign in
               </Link>
@@ -109,7 +109,7 @@ const EmailConfirm = () => {
         )}
       </div>
     </Page>
-  );
-};
+  )
+}
 
-export default EmailConfirm;
+export default EmailConfirm

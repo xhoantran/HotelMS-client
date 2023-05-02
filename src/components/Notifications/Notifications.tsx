@@ -1,16 +1,16 @@
-import { useNotificationStore } from 'stores/notifications';
+import { useNotificationStore } from 'stores/notifications'
 
-import { Notification } from './Notification';
+import { Notification } from './Notification'
 
 export const Notifications = () => {
-  const { notifications, dismissNotification } = useNotificationStore();
+  const { notifications, dismissNotification } = useNotificationStore()
 
   return (
     <div
       aria-live="assertive"
-      className="z-50 flex flex-col fixed inset-0 space-y-4 items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start"
+      className="pointer-events-none fixed inset-0 z-50 flex flex-col items-end space-y-4 px-4 py-6 sm:items-start sm:p-6"
     >
-      {notifications.map(notification => (
+      {notifications.map((notification) => (
         <Notification
           key={notification.id}
           notification={notification}
@@ -18,5 +18,5 @@ export const Notifications = () => {
         />
       ))}
     </div>
-  );
-};
+  )
+}

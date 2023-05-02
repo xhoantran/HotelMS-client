@@ -1,22 +1,22 @@
-import axios from 'lib/axios';
-import { setAccessToken, setRefreshToken, isValidToken } from 'utils/jwt';
-import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
-import { useEffect } from 'react';
-import baseAxios from 'axios';
+import axios from 'lib/axios'
+import { setAccessToken, setRefreshToken, isValidToken } from 'utils/jwt'
+import { create } from 'zustand'
+import { devtools, persist } from 'zustand/middleware'
+import { useEffect } from 'react'
+import baseAxios from 'axios'
 
 interface IAuthState {
-  isAuthenticated: boolean;
+  isAuthenticated: boolean
   user: {
-    pk: string; // uuid
-    username: string;
-    email: string;
-    name: string;
-  };
-  login: (email: string, password: string) => Promise<void | Error>;
-  verifyEmail: (key: string) => Promise<void | Error>;
-  logout: () => void;
-  me: () => Promise<void | Error>;
+    pk: string // uuid
+    username: string
+    email: string
+    name: string
+  }
+  login: (email: string, password: string) => Promise<void | Error>
+  verifyEmail: (key: string) => Promise<void | Error>
+  logout: () => void
+  me: () => Promise<void | Error>
 }
 
 const useAuth = create<IAuthState>()(
@@ -28,77 +28,77 @@ const useAuth = create<IAuthState>()(
           pk: '',
           username: '',
           email: '',
-          name: '',
+          name: ''
         },
         login: async (email, password) => {
           const response = await axios.post('/api-auth/v1/login/', {
             email,
-            password,
-          });
-          const { access_token, refresh_token, user } = await response.data;
-          set({ isAuthenticated: true, user });
-          setAccessToken(access_token);
-          setRefreshToken(refresh_token);
+            password
+          })
+          const { access_token, refresh_token, user } = await response.data
+          set({ isAuthenticated: true, user })
+          setAccessToken(access_token)
+          setRefreshToken(refresh_token)
         },
         verifyEmail: async (key) => {
           await axios.post('/api-auth/v1/registration/verify-email/', {
-            key,
-          });
+            key
+          })
         },
         logout: () => {
-          set({ isAuthenticated: false });
-          setAccessToken();
-          setRefreshToken();
+          set({ isAuthenticated: false })
+          setAccessToken()
+          setRefreshToken()
         },
         me: async () => {
-          const response = await axios.get('/api-auth/v1/user/');
-          const user = await response.data;
-          set({ isAuthenticated: true, user });
-        },
+          const response = await axios.get('/api-auth/v1/user/')
+          const user = await response.data
+          set({ isAuthenticated: true, user })
+        }
       }),
       { name: 'auth' }
     )
   )
-);
+)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const { me, logout } = useAuth();
+  const { me, logout } = useAuth()
 
   useEffect(() => {
     try {
-      const access_token = localStorage.getItem('accessToken');
-      const refresh_token = localStorage.getItem('refreshToken');
+      const access_token = localStorage.getItem('accessToken')
+      const refresh_token = localStorage.getItem('refreshToken')
       // Initialize using access_token
       if (access_token && isValidToken(access_token)) {
-        setAccessToken(access_token);
-        me();
+        setAccessToken(access_token)
+        me()
       } else if (refresh_token && isValidToken(refresh_token)) {
         baseAxios
           .post('/api-auth/v1/token/refresh/', {
-            refresh: refresh_token,
+            refresh: refresh_token
           })
           .then(({ data }) => {
-            setAccessToken(data.access);
-            setRefreshToken(data.refresh);
-            me();
+            setAccessToken(data.access)
+            setRefreshToken(data.refresh)
+            me()
           })
           .catch(() => {
-            setAccessToken();
-            setRefreshToken();
-          });
+            setAccessToken()
+            setRefreshToken()
+          })
         // Ehh
       } else {
-        setAccessToken();
-        setRefreshToken();
-        logout();
+        setAccessToken()
+        setRefreshToken()
+        logout()
       }
     } catch (error) {
-      setAccessToken();
-      setRefreshToken();
+      setAccessToken()
+      setRefreshToken()
       logout()
     }
-  }, []);
-  return <>{children}</>;
+  }, [])
+  return <>{children}</>
 }
 
-export default useAuth;
+export default useAuth

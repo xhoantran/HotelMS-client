@@ -1,28 +1,37 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query'
 
-import axiosInstance from 'lib/axios';
-import { ExtractFnReturnType, QueryConfig } from 'lib/react-query';
-import camelize from 'utils/camalize';
-import type { SnakifyObject } from 'utils/snakify';
+import axiosInstance from 'lib/axios'
+import { ExtractFnReturnType, QueryConfig } from 'lib/react-query'
+import camelize from 'utils/camalize'
+import type { SnakifyObject } from 'utils/snakify'
 
-import type { IDynamicPricingSetting } from '../types';
+import type { IDynamicPricingSetting } from '../types'
 
-export const getDynamicPricingSetting = async ({ dynamicPricingSettingUuid }: { dynamicPricingSettingUuid: string }): Promise<IDynamicPricingSetting> => {
-  const { data } = await axiosInstance.get(`/api/v1/rms/dynamic-pricing-setting/${dynamicPricingSettingUuid}/`) as { data: SnakifyObject<IDynamicPricingSetting> };
-  return camelize(data);
-};
+export const getDynamicPricingSetting = async ({
+  dynamicPricingSettingUuid
+}: {
+  dynamicPricingSettingUuid: string
+}): Promise<IDynamicPricingSetting> => {
+  const { data } = (await axiosInstance.get(
+    `/api/v1/rms/dynamic-pricing-setting/${dynamicPricingSettingUuid}/`
+  )) as { data: SnakifyObject<IDynamicPricingSetting> }
+  return camelize(data)
+}
 
-type QueryFnType = typeof getDynamicPricingSetting;
+type QueryFnType = typeof getDynamicPricingSetting
 
 type UseDynamicPricingSettingOptions = {
-  dynamicPricingSettingUuid: string;
-  config?: QueryConfig<QueryFnType>;
-};
+  dynamicPricingSettingUuid: string
+  config?: QueryConfig<QueryFnType>
+}
 
-export const useDynamicPricingSetting = ({ dynamicPricingSettingUuid, config }: UseDynamicPricingSettingOptions) => {
+export const useDynamicPricingSetting = ({
+  dynamicPricingSettingUuid,
+  config
+}: UseDynamicPricingSettingOptions) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
     queryKey: ['dynamicPricingSetting', dynamicPricingSettingUuid],
-    queryFn: () => getDynamicPricingSetting({ dynamicPricingSettingUuid }),
-  });
-};
+    queryFn: () => getDynamicPricingSetting({ dynamicPricingSettingUuid })
+  })
+}

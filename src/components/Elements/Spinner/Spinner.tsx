@@ -1,28 +1,37 @@
-import clsx from 'clsx';
+import clsx from 'clsx'
 
 const sizes = {
   sm: 'h-4 w-4',
   md: 'h-8 w-8',
   lg: 'h-16 w-16',
-  xl: 'h-24 w-24',
-};
+  xl: 'h-24 w-24'
+}
 
 const variants = {
   light: 'text-white',
-  primary: 'text-blue-600',
-};
+  primary: 'text-blue-600'
+}
 
 export type SpinnerProps = {
-  size?: keyof typeof sizes;
-  variant?: keyof typeof variants;
-  className?: string;
-};
+  size?: keyof typeof sizes
+  variant?: keyof typeof variants
+  className?: string
+}
 
-export const Spinner = ({ size = 'md', variant = 'primary', className = '' }: SpinnerProps) => {
+export const Spinner = ({
+  size = 'md',
+  variant = 'primary',
+  className = ''
+}: SpinnerProps) => {
   return (
     <>
       <svg
-        className={clsx('animate-spin', sizes[size], variants[variant], className)}
+        className={clsx(
+          'animate-spin',
+          sizes[size],
+          variants[variant],
+          className
+        )}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -44,5 +53,5 @@ export const Spinner = ({ size = 'md', variant = 'primary', className = '' }: Sp
       </svg>
       <span className="sr-only">Loading</span>
     </>
-  );
-};
+  )
+}

@@ -1,35 +1,38 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query'
 
-import axiosInstance from "lib/axios";
-import { MutationConfig, queryClient } from "lib/react-query";
-import { useNotificationStore } from 'stores/notifications';
+import axiosInstance from 'lib/axios'
+import { MutationConfig, queryClient } from 'lib/react-query'
+import { useNotificationStore } from 'stores/notifications'
 
-
-export const syncHotel = async ({hotelUuid}: {hotelUuid: string}): Promise<void> => {
-  await axiosInstance.post(`/api/v1/pms/hotel/${hotelUuid}/sync/`);
+export const syncHotel = async ({
+  hotelUuid
+}: {
+  hotelUuid: string
+}): Promise<void> => {
+  await axiosInstance.post(`/api/v1/pms/hotel/${hotelUuid}/sync/`)
 }
 
 type useSyncHotelOptions = {
-  config?: MutationConfig<typeof syncHotel>;
+  config?: MutationConfig<typeof syncHotel>
 }
 
 export const useSyncHotel = ({ config }: useSyncHotelOptions = {}) => {
-  const { addNotification } = useNotificationStore();
+  const { addNotification } = useNotificationStore()
   return useMutation({
     onError: (_, __, context: any) => {
       if (context?.previousHotels) {
-        queryClient.setQueryData(['hotels'], context.previousHotels);
+        queryClient.setQueryData(['hotels'], context.previousHotels)
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['hotels']);
+      queryClient.invalidateQueries(['hotels'])
       addNotification({
         type: 'success',
-        title: 'Hotel Synced',
-      });
+        title: 'Hotel Synced'
+      })
     },
     ...config,
     retry: false,
-    mutationFn: syncHotel,
-  });
+    mutationFn: syncHotel
+  })
 }

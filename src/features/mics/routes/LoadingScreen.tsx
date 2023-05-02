@@ -1,19 +1,19 @@
 interface LoadingScreenProps extends React.ComponentProps<'div'> {
-  isDashboard?: boolean;
+  isDashboard?: boolean
 }
 
 const LoadingScreen = (props: LoadingScreenProps) => {
-  const { isDashboard, ...other } = props;
+  const { isDashboard, ...other } = props
 
   return (
     <div
       {...other}
       className={
-        'flex justify-center items-center fixed top-0 left-0 w-full h-full z-50 bg-black bg-opacity-5'
+        'fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-5'
       }
     >
       <svg
-        className="animate-spin h-5 w-5 text-white"
+        className="h-5 w-5 animate-spin text-white"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -33,7 +33,7 @@ const LoadingScreen = (props: LoadingScreenProps) => {
         ></path>
       </svg>
     </div>
-  );
-};
+  )
+}
 
-export default LoadingScreen;
+export default LoadingScreen

@@ -1,31 +1,31 @@
-import { HomeModernIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
-import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import DesktopSidebar from './DesktopSidebar';
-import Header from './Header';
-import MobileSidebar from './MobileSidebar';
+import { HomeModernIcon, Squares2X2Icon } from '@heroicons/react/24/outline'
+import { useState } from 'react'
+import { Outlet } from 'react-router-dom'
+import DesktopSidebar from './DesktopSidebar'
+import Header from './Header'
+import MobileSidebar from './MobileSidebar'
 
 const navigation = [
   {
     name: 'Dashboard',
     href: '/dashboard',
     icon: Squares2X2Icon,
-    current: true,
+    current: true
   },
   {
     name: 'Hotels',
     href: '/dashboard/hotels',
     icon: HomeModernIcon,
-    current: false,
-  },
-];
+    current: false
+  }
+]
 const userNavigation = [
   { name: 'Account settings', href: '#' },
-  { name: 'Support', href: '#' },
-];
+  { name: 'Support', href: '#' }
+]
 
 export default function DashboardLayout() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
     <>
@@ -53,5 +53,5 @@ export default function DashboardLayout() {
         </div>
       </div>
     </>
-  );
+  )
 }

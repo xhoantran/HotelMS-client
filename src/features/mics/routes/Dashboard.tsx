@@ -3,46 +3,46 @@ import {
   ArrowPathIcon,
   ArrowUpCircleIcon,
   PlusSmallIcon
-} from '@heroicons/react/20/solid';
-import clsx from 'clsx';
-import { Fragment } from 'react';
+} from '@heroicons/react/20/solid'
+import clsx from 'clsx'
+import { Fragment } from 'react'
 
 const secondaryNavigation = [
   { name: 'Last 7 days', href: '#', current: true },
   { name: 'Last 30 days', href: '#', current: false },
-  { name: 'All-time', href: '#', current: false },
-];
+  { name: 'All-time', href: '#', current: false }
+]
 const stats = [
   {
     name: 'Revenue',
     value: '$405,091.00',
     change: '+4.75%',
-    changeType: 'positive',
+    changeType: 'positive'
   },
   {
     name: 'Overdue invoices',
     value: '$12,787.00',
     change: '+54.02%',
-    changeType: 'negative',
+    changeType: 'negative'
   },
   {
     name: 'Outstanding invoices',
     value: '$245,988.00',
     change: '-1.39%',
-    changeType: 'positive',
+    changeType: 'positive'
   },
   {
     name: 'Expenses',
     value: '$30,156.00',
     change: '+10.18%',
-    changeType: 'negative',
-  },
-];
+    changeType: 'negative'
+  }
+]
 const statuses = {
   Paid: 'text-green-700 bg-green-50 ring-green-600/20',
   Withdraw: 'text-gray-600 bg-gray-50 ring-gray-500/10',
-  Overdue: 'text-red-700 bg-red-50 ring-red-600/10',
-};
+  Overdue: 'text-red-700 bg-red-50 ring-red-600/10'
+}
 const days = [
   {
     date: 'Today',
@@ -57,7 +57,7 @@ const days = [
         status: 'Paid',
         client: 'Reform',
         description: 'Website redesign',
-        icon: ArrowUpCircleIcon,
+        icon: ArrowUpCircleIcon
       },
       {
         id: 2,
@@ -67,7 +67,7 @@ const days = [
         status: 'Withdraw',
         client: 'Tom Cook',
         description: 'Salary',
-        icon: ArrowDownCircleIcon,
+        icon: ArrowDownCircleIcon
       },
       {
         id: 3,
@@ -78,9 +78,9 @@ const days = [
         status: 'Overdue',
         client: 'Tuple',
         description: 'Logo design',
-        icon: ArrowPathIcon,
-      },
-    ],
+        icon: ArrowPathIcon
+      }
+    ]
   },
   {
     date: 'Yesterday',
@@ -95,46 +95,11 @@ const days = [
         status: 'Paid',
         client: 'SavvyCal',
         description: 'Website redesign',
-        icon: ArrowUpCircleIcon,
-      },
-    ],
-  },
-];
-const clients = [
-  {
-    id: 1,
-    name: 'Tuple',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/tuple.svg',
-    lastInvoice: {
-      date: 'December 13, 2022',
-      dateTime: '2022-12-13',
-      amount: '$2,000.00',
-      status: 'Overdue',
-    },
-  },
-  {
-    id: 2,
-    name: 'SavvyCal',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/savvycal.svg',
-    lastInvoice: {
-      date: 'January 22, 2023',
-      dateTime: '2023-01-22',
-      amount: '$14,000.00',
-      status: 'Paid',
-    },
-  },
-  {
-    id: 3,
-    name: 'Reform',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/reform.svg',
-    lastInvoice: {
-      date: 'January 23, 2023',
-      dateTime: '2023-01-23',
-      amount: '$7,600.00',
-      status: 'Paid',
-    },
-  },
-];
+        icon: ArrowUpCircleIcon
+      }
+    ]
+  }
+]
 
 export default function Dashboard() {
   return (
@@ -147,7 +112,7 @@ export default function Dashboard() {
               Dashboard
             </h1>
             <div className="order-last flex w-full gap-x-8 text-sm font-semibold leading-6 sm:order-none sm:w-auto sm:border-l sm:border-gray-200 sm:pl-6 sm:leading-7">
-              {secondaryNavigation.map(item => (
+              {secondaryNavigation.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
@@ -179,7 +144,7 @@ export default function Dashboard() {
                     : statIdx === 2
                     ? 'lg:border-l'
                     : '',
-                  'flex items-baseline flex-wrap justify-between gap-y-2 gap-x-4 border-t border-gray-900/5 px-4 py-10 sm:px-6 lg:border-t-0 xl:px-8'
+                  'flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-gray-900/5 px-4 py-10 sm:px-6 lg:border-t-0 xl:px-8'
                 )}
               >
                 <dt className="text-sm font-medium leading-6 text-gray-500">
@@ -211,7 +176,7 @@ export default function Dashboard() {
             className="aspect-[1154/678] w-[72.125rem] bg-gradient-to-br from-[#FF80B5] to-[#9089FC]"
             style={{
               clipPath:
-                'polygon(100% 38.5%, 82.6% 100%, 60.2% 37.7%, 52.4% 32.1%, 47.5% 41.8%, 45.2% 65.6%, 27.5% 23.4%, 0.1% 35.3%, 17.9% 0%, 27.7% 23.4%, 76.2% 2.5%, 74.2% 56%, 100% 38.5%)',
+                'polygon(100% 38.5%, 82.6% 100%, 60.2% 37.7%, 52.4% 32.1%, 47.5% 41.8%, 45.2% 65.6%, 27.5% 23.4%, 0.1% 35.3%, 17.9% 0%, 27.7% 23.4%, 76.2% 2.5%, 74.2% 56%, 100% 38.5%)'
             }}
           />
         </div>
@@ -237,7 +202,7 @@ export default function Dashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {days.map(day => (
+                    {days.map((day) => (
                       <Fragment key={day.dateTime}>
                         <tr className="text-sm leading-6 text-gray-900">
                           <th
@@ -250,7 +215,7 @@ export default function Dashboard() {
                             <div className="absolute inset-y-0 left-0 -z-10 w-screen border-b border-gray-200 bg-gray-50" />
                           </th>
                         </tr>
-                        {day.transactions.map(transaction => (
+                        {day.transactions.map((transaction) => (
                           <tr key={transaction.id}>
                             <td className="relative py-5 pr-6">
                               <div className="flex gap-x-6">
@@ -265,9 +230,9 @@ export default function Dashboard() {
                                     </div>
                                     <div
                                       className={clsx(
-                                        // @ts-expect-error
+                                        // @ts-expect-error this is fine
                                         statuses[transaction.status],
-                                        'rounded-md py-1 px-2 text-xs font-medium ring-1 ring-inset'
+                                        'rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset'
                                       )}
                                     >
                                       {transaction.status}
@@ -327,5 +292,5 @@ export default function Dashboard() {
         </div>
       </div>
     </>
-  );
+  )
 }

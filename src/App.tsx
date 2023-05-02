@@ -1,19 +1,19 @@
-import { QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-import { Button } from 'components/Elements';
-import { Notifications } from 'components/Notifications/Notifications';
-import { queryClient } from 'lib/react-query';
-import { ErrorBoundary } from 'react-error-boundary';
-import { HelmetProvider } from 'react-helmet-async';
-import { RouterProvider } from 'react-router-dom';
-import router from 'routes';
-import { AuthProvider } from 'stores/useAuth';
+import { Button } from 'components/Elements'
+import { Notifications } from 'components/Notifications/Notifications'
+import { queryClient } from 'lib/react-query'
+import { ErrorBoundary } from 'react-error-boundary'
+import { HelmetProvider } from 'react-helmet-async'
+import { RouterProvider } from 'react-router-dom'
+import router from 'routes'
+import { AuthProvider } from 'stores/useAuth'
 
 const ErrorFallback = () => {
   return (
     <div
-      className="text-red-500 w-screen h-screen flex flex-col justify-center items-center"
+      className="flex h-screen w-screen flex-col items-center justify-center text-red-500"
       role="alert"
     >
       <h2 className="text-lg font-semibold">Ooops, something went wrong :( </h2>
@@ -24,8 +24,8 @@ const ErrorFallback = () => {
         Refresh
       </Button>
     </div>
-  );
-};
+  )
+}
 
 export default function App() {
   return (
@@ -40,5 +40,5 @@ export default function App() {
         </HelmetProvider>
       </AuthProvider>
     </ErrorBoundary>
-  );
+  )
 }

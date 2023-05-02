@@ -1,19 +1,19 @@
-import { Dialog, Transition } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import clsx from 'clsx';
-import { Fragment, SetStateAction } from 'react';
-import type { INavigationItem } from './types';
-import { Link, useLocation } from 'react-router-dom';
+import { Dialog, Transition } from '@headlessui/react'
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import clsx from 'clsx'
+import { Fragment, SetStateAction } from 'react'
+import type { INavigationItem } from './types'
+import { Link, useLocation } from 'react-router-dom'
 
 interface MobileSidebarProps extends React.HTMLAttributes<HTMLDivElement> {
-  sidebarOpen: boolean;
-  setSidebarOpen: React.Dispatch<SetStateAction<boolean>>;
-  navigation: INavigationItem[];
+  sidebarOpen: boolean
+  setSidebarOpen: React.Dispatch<SetStateAction<boolean>>
+  navigation: INavigationItem[]
 }
 
 export default function MobileSidebar(props: MobileSidebarProps) {
-  const { sidebarOpen, setSidebarOpen, navigation } = props;
-  const { pathname } = useLocation();
+  const { sidebarOpen, setSidebarOpen, navigation } = props
+  const { pathname } = useLocation()
 
   return (
     <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -81,15 +81,15 @@ export default function MobileSidebar(props: MobileSidebarProps) {
                   <ul role="list" className="flex flex-1 flex-col gap-y-7">
                     <li>
                       <ul role="list" className="-mx-2 space-y-1">
-                        {navigation.map(item => (
+                        {navigation.map((item) => (
                           <li key={item.name}>
                             <Link
                               to={item.href}
                               className={clsx(
                                 pathname === item.href
                                   ? 'bg-gray-50 text-blue-600'
-                                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50',
-                                'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                                  : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600',
+                                'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6'
                               )}
                             >
                               <item.icon
@@ -127,5 +127,5 @@ export default function MobileSidebar(props: MobileSidebarProps) {
         </div>
       </Dialog>
     </Transition.Root>
-  );
+  )
 }

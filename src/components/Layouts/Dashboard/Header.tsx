@@ -1,22 +1,19 @@
-import { Menu, Transition } from '@headlessui/react';
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-} from '@heroicons/react/20/solid';
-import { Bars3Icon, BellIcon } from '@heroicons/react/24/outline';
-import clsx from 'clsx';
-import { Fragment } from 'react';
-import type { IUserNavigationItem } from './types';
-import useAuth from 'stores/useAuth';
+import { Menu, Transition } from '@headlessui/react'
+import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { Bars3Icon, BellIcon } from '@heroicons/react/24/outline'
+import clsx from 'clsx'
+import { Fragment } from 'react'
+import type { IUserNavigationItem } from './types'
+import useAuth from 'stores/useAuth'
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  userNavigation: IUserNavigationItem[];
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>
+  userNavigation: IUserNavigationItem[]
 }
 
 export default function Header(props: HeaderProps) {
-  const { setSidebarOpen, userNavigation } = props;
-  const { user, logout } = useAuth();
+  const { setSidebarOpen, userNavigation } = props
+  const { user, logout } = useAuth()
 
   return (
     <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
@@ -109,7 +106,7 @@ export default function Header(props: HeaderProps) {
                   </p>
                 </div>
                 <div className="py-1">
-                  {userNavigation.map(item => (
+                  {userNavigation.map((item) => (
                     <Menu.Item key={item.name}>
                       {({ active }) => (
                         <a
@@ -151,5 +148,5 @@ export default function Header(props: HeaderProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }

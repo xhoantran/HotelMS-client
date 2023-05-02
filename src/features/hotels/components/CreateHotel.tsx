@@ -11,13 +11,13 @@ import { useCreateHotel } from '../api/createHotel'
 const CreateHotelSchema = Yup.object().shape({
   pms: Yup.string().required('PMS is required'),
   pmsId: Yup.string().required('Property ID is required'),
-  pmsApiKey: Yup.string().required('API Key is required'),
+  pmsApiKey: Yup.string().required('API Key is required')
 })
 
 const defaultValues = {
   pms: 'CHANNEX',
   pmsId: '',
-  pmsApiKey: '',
+  pmsApiKey: ''
 }
 
 export function CreateHotel() {
@@ -26,7 +26,7 @@ export function CreateHotel() {
 
   const methods = useForm({
     resolver: yupResolver(CreateHotelSchema),
-    defaultValues,
+    defaultValues
   })
 
   const {
@@ -34,43 +34,46 @@ export function CreateHotel() {
     handleSubmit,
     setError,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting }
   } = methods
 
   const closeSlideOver = () => {
-    setOpen(false);
-    reset(defaultValues);
+    setOpen(false)
+    reset(defaultValues)
   }
 
   const onSubmit = handleSubmit((values) => {
-      createHotelMutation.mutate({
+    createHotelMutation.mutate(
+      {
         data: {
           ...values,
-          name: 'Temp Hotel Name',
-        },
-      }, {
+          name: 'Temp Hotel Name'
+        }
+      },
+      {
         onSuccess: () => {
-          closeSlideOver();
+          closeSlideOver()
         },
         onError: (err: unknown) => {
           if (typeof err === 'string') {
             setError('root', {
               type: 'manual',
-              message: err,
+              message: err
             })
           } else if (err instanceof AxiosError) {
             setError('root', {
               type: 'manual',
-              message: err.response?.data?.detail || 'Something went wrong',
+              message: err.response?.data?.detail || 'Something went wrong'
             })
           } else {
             setError('root', {
               type: 'manual',
-              message: 'Something went wrong',
+              message: 'Something went wrong'
             })
           }
-        },
-      })
+        }
+      }
+    )
   })
 
   return (
@@ -122,18 +125,20 @@ export function CreateHotel() {
                               onClick={() => closeSlideOver()}
                             >
                               <span className="sr-only">Close panel</span>
-                              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                              <XMarkIcon
+                                className="h-6 w-6"
+                                aria-hidden="true"
+                              />
                             </button>
                           </div>
                         </div>
                       </div>
                       <div className="relative mt-6 flex-1 px-4 sm:px-6">
-
                         <FormProvider {...methods}>
                           {errors.root && (
                             <div className="mb-6 rounded-md bg-red-50 p-4">
                               <div className="flex">
-                                <div className="flex-shrink-0">
+                                <div className="shrink-0">
                                   <XCircleIcon
                                     className="h-5 w-5 text-red-400"
                                     aria-hidden="true"
@@ -149,7 +154,10 @@ export function CreateHotel() {
                           )}
                           <form onSubmit={onSubmit}>
                             <div>
-                              <label htmlFor="pms" className="block text-sm font-medium leading-6 text-gray-900">
+                              <label
+                                htmlFor="pms"
+                                className="block text-sm font-medium leading-6 text-gray-900"
+                              >
                                 Source
                               </label>
                               <div className="mt-2">
@@ -164,8 +172,11 @@ export function CreateHotel() {
                                 />
                               </div>
                             </div>
-                            <div className='mt-8'>
-                              <label htmlFor="pmsId" className="block text-sm font-medium leading-6 text-gray-900">
+                            <div className="mt-8">
+                              <label
+                                htmlFor="pmsId"
+                                className="block text-sm font-medium leading-6 text-gray-900"
+                              >
                                 Property ID
                               </label>
                               <div className="mt-2">
@@ -178,8 +189,11 @@ export function CreateHotel() {
                                 />
                               </div>
                             </div>
-                            <div className='mt-8'>
-                              <label htmlFor="pmsApiKey" className="block text-sm font-medium leading-6 text-gray-900">
+                            <div className="mt-8">
+                              <label
+                                htmlFor="pmsApiKey"
+                                className="block text-sm font-medium leading-6 text-gray-900"
+                              >
                                 API Key
                               </label>
                               <div className="mt-2">
@@ -187,12 +201,12 @@ export function CreateHotel() {
                                   {...register('pmsApiKey')}
                                   type="text"
                                   id="pmsApiKey"
-                                  className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6'
+                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                                 />
                               </div>
                             </div>
                             <div className="mt-6 flex items-center justify-end gap-x-6">
-                              <button 
+                              <button
                                 type="button"
                                 className="text-sm font-semibold leading-6 text-gray-900"
                                 onClick={() => closeSlideOver()}
@@ -209,7 +223,6 @@ export function CreateHotel() {
                             </div>
                           </form>
                         </FormProvider>
-
                       </div>
                     </div>
                   </Dialog.Panel>

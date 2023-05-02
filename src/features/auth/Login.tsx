@@ -1,71 +1,71 @@
-import { EyeIcon, EyeSlashIcon, XCircleIcon } from '@heroicons/react/20/solid';
-import { yupResolver } from '@hookform/resolvers/yup';
-import clsx from 'clsx';
-import Page from 'components/Page';
-import useIsMountedRef from 'hooks/useIsMountedRef';
-import { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import { PATH_AUTH } from 'routes/paths';
-import useAuth from 'stores/useAuth';
-import * as Yup from 'yup';
-import { AxiosError } from 'axios';
+import { EyeIcon, EyeSlashIcon, XCircleIcon } from '@heroicons/react/20/solid'
+import { yupResolver } from '@hookform/resolvers/yup'
+import clsx from 'clsx'
+import Page from 'components/Page'
+import useIsMountedRef from 'hooks/useIsMountedRef'
+import { useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
+import { PATH_AUTH } from 'routes/paths'
+import useAuth from 'stores/useAuth'
+import * as Yup from 'yup'
+import { AxiosError } from 'axios'
 
 const Login = () => {
-  const { login } = useAuth();
-  const isMountedRef = useIsMountedRef();
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const { login } = useAuth()
+  const isMountedRef = useIsMountedRef()
+  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email('Email must be a valid email address')
       .required('Email is required'),
-    password: Yup.string().required('Password is required'),
-  });
+    password: Yup.string().required('Password is required')
+  })
 
   const defaultValues = {
     email: '',
-    password: '',
-  };
+    password: ''
+  }
 
   const methods = useForm({
     resolver: yupResolver(LoginSchema),
-    defaultValues,
-  });
+    defaultValues
+  })
 
   const {
     register,
     handleSubmit,
     setError,
-    formState: { errors, isSubmitting },
-  } = methods;
+    formState: { errors, isSubmitting }
+  } = methods
 
   const onSubmit = async (data: any) => {
     try {
-      await login(data.email, data.password);
+      await login(data.email, data.password)
     } catch (err: unknown) {
       if (typeof err === 'string') {
         setError('password', {
           type: 'manual',
-          message: err,
-        });
+          message: err
+        })
       } else if (err instanceof AxiosError) {
         if (isMountedRef.current) {
           setError('password', {
             type: 'manual',
-            message: err.response?.data.detail,
-          });
+            message: err.response?.data.detail
+          })
         }
       } else {
         if (isMountedRef.current) {
           setError('password', {
             type: 'manual',
-            message: 'Something went wrong, please try again.',
-          });
+            message: 'Something went wrong, please try again.'
+          })
         }
       }
     }
-  };
+  }
 
   return (
     <Page title="Login - Hanz">
@@ -85,7 +85,7 @@ const Login = () => {
           {errors.password && (
             <div className="mb-6 rounded-md bg-red-50 p-4">
               <div className="flex">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <XCircleIcon
                     className="h-5 w-5 text-red-400"
                     aria-hidden="true"
@@ -138,7 +138,7 @@ const Login = () => {
                     </Link>
                   </div>
                 </div>
-                <div className="mt-2 relative">
+                <div className="relative mt-2">
                   <input
                     {...register('password')}
                     id="password"
@@ -147,7 +147,7 @@ const Login = () => {
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                   />
-                  <div className="text-gray-400 cursor-pointer absolute inset-y-0 right-0 flex items-center pr-3">
+                  <div className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 text-gray-400">
                     {showPassword ? (
                       <EyeIcon
                         className="h-5 w-5"
@@ -169,8 +169,8 @@ const Login = () => {
                 <button
                   type="submit"
                   className={clsx(
-                    'flex w-full justify-center rounded-md bg-blue-600 px-3 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600',
-                    isSubmitting && 'opacity-50 cursor-not-allowed'
+                    'flex w-full justify-center rounded-md bg-blue-600 p-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600',
+                    isSubmitting && 'cursor-not-allowed opacity-50'
                   )}
                   disabled={isSubmitting}
                 >
@@ -182,7 +182,7 @@ const Login = () => {
         </div>
       </div>
     </Page>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

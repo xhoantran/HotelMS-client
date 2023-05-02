@@ -1,3 +1,3 @@
-export * from "./LoadingScreen";
-export * from "./NotFoundScreen";
-export * from "./Dashboard";
+export * from './LoadingScreen'
+export * from './NotFoundScreen'
+export * from './Dashboard'

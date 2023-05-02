@@ -1,55 +1,60 @@
-import { ClockIcon } from "@heroicons/react/24/outline";
-import clsx from "clsx";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { ClockIcon } from '@heroicons/react/24/outline'
+import clsx from 'clsx'
+import { useState } from 'react'
+import { useParams } from 'react-router-dom'
 
-import { Spinner } from "components/Elements";
-import { Head } from "components/Head";
-import { formatDate } from "utils/format";
-import { DynamicPricingSetting } from "features/dynamicPricingSetting/components/DynamicPricingSetting";
+import { Spinner } from 'components/Elements'
+import { Head } from 'components/Head'
+import { formatDate } from 'utils/format'
+import { DynamicPricingSetting } from 'features/dynamicPricingSetting/components/DynamicPricingSetting'
 
-import { useHotel } from "../api/getHotel";
-import { HotelGeneral } from "../components/HotelGeneral";
-import { SyncHotel } from "../components/SyncHotel";
-
+import { useHotel } from '../api/getHotel'
+import { HotelGeneral } from '../components/HotelGeneral'
+import { SyncHotel } from '../components/SyncHotel'
 
 const tabs = [
   { name: 'General' },
   // { name: 'Room Types' },
   // { name: 'Rate Plans' },
-  { name: 'Dynamic Pricing' },
+  { name: 'Dynamic Pricing' }
 ]
 
-
 export function Hotel() {
-  const [activeTab, setActiveTab] = useState(tabs[0].name);
-  const { hotelUuid } = useParams() as { hotelUuid: string};
-  const hotelQuery = useHotel({ hotelUuid });
+  const [activeTab, setActiveTab] = useState(tabs[0].name)
+  const { hotelUuid } = useParams() as { hotelUuid: string }
+  const hotelQuery = useHotel({ hotelUuid })
 
   if (hotelQuery.isLoading) {
     return (
-      <div className="w-full h-48 flex justify-center items-center">
+      <div className="flex h-48 w-full items-center justify-center">
         <Spinner />
       </div>
-    );
+    )
   }
 
-  if (!hotelQuery.data) return <div>Something went wrong</div>;
+  if (!hotelQuery.data) return <div>Something went wrong</div>
 
   const nestedComponents = () => {
     switch (activeTab) {
       case 'General':
-        return <HotelGeneral data={hotelQuery.data} />;
+        return <HotelGeneral data={hotelQuery.data} />
       // case 'Room Types':
       //   return <HotelRoomTypes data={hotelQuery.data} />;
       // case 'Rate Plans':
       //   return <HotelRatePlans data={hotelQuery.data} />;
       case 'Dynamic Pricing':
-        return <DynamicPricingSetting currency={hotelQuery.data.currency} dynamicPricingSettingUuid={hotelQuery.data.dynamicPricingSetting.uuid}/>;
+        return (
+          <DynamicPricingSetting
+            currency={hotelQuery.data.currency}
+            dynamicPricingSettingUuid={
+              hotelQuery.data.dynamicPricingSetting.uuid
+            }
+          />
+        )
       default:
-        return <HotelGeneral data={hotelQuery.data} />;
+        return <HotelGeneral data={hotelQuery.data} />
     }
-  };
+  }
 
   return (
     <>
@@ -63,12 +68,15 @@ export function Hotel() {
                 {hotelQuery.data.name}
               </h2>
               <div className="mt-2 flex items-center text-sm text-gray-500">
-                <ClockIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                <ClockIcon
+                  className="mr-1.5 h-5 w-5 shrink-0 text-gray-400"
+                  aria-hidden="true"
+                />
                 Updated on {formatDate(hotelQuery.data.updatedAt)}
               </div>
             </div>
             <div className="mt-4 flex md:ml-4 md:mt-0">
-              <SyncHotel hotelUuid={hotelUuid}/>
+              <SyncHotel hotelUuid={hotelUuid} />
             </div>
           </div>
 
@@ -111,9 +119,7 @@ export function Hotel() {
           </div>
         </div>
 
-        <div className="mt-6">
-          {nestedComponents()}
-        </div>
+        <div className="mt-6">{nestedComponents()}</div>
       </div>
     </>
   )
