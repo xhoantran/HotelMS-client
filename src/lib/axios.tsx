@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { API_BASE_URL } from 'config'
+import useAuth from 'stores/useAuth'
 import { setAccessToken, setRefreshToken } from 'utils/jwt'
 
 const axiosInstance = axios.create({
@@ -24,8 +25,7 @@ axiosInstance.interceptors.response.use(
         setRefreshToken(data.refresh)
         return axiosInstance(originalRequest)
       } catch (err) {
-        setAccessToken()
-        setRefreshToken()
+        useAuth.getState().logout()
       }
     }
     return Promise.reject(error)

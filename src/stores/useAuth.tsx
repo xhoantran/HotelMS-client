@@ -71,8 +71,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         me()
       }
     } catch (error) {
-      setAccessToken()
-      setRefreshToken()
       logout()
     }
   }, [])
