@@ -1,11 +1,10 @@
 import { XCircleIcon } from '@heroicons/react/20/solid'
+import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AxiosError } from 'axios'
-import clsx from 'clsx'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import * as Yup from 'yup'
-import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import { useCreateOccupancyRule } from '../api/createOccupancyRule'
 
@@ -49,15 +48,13 @@ export function CreateOccupancyRule(props: CreateOccupancyRuleProps) {
     handleSubmit,
     setError,
     reset,
-    formState: { errors, isSubmitting }
+    formState: { errors }
   } = methods
 
   const closeSlideOver = () => {
     setOpen(false)
     reset(defaultValues)
   }
-
-  console.log(errors)
 
   const onSubmit = handleSubmit((values) => {
     createOccupancyRuleMutation.mutate(
@@ -174,12 +171,8 @@ export function CreateOccupancyRule(props: CreateOccupancyRuleProps) {
                 <div className="inline-flex items-center gap-2">
                   <button
                     type="button"
-                    className={clsx(
-                      'rounded-md px-2.5 py-1.5 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
-                      isSubmitting
-                        ? 'cursor-not-allowed bg-gray-200 text-gray-500'
-                        : 'bg-blue-600 text-white hover:bg-blue-500 focus-visible:outline-blue-600'
-                    )}
+                    className="rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-wait disabled:bg-gray-200 disabled:text-gray-500"
+                    disabled={createOccupancyRuleMutation.isLoading}
                     onClick={onSubmit}
                   >
                     <CheckIcon
