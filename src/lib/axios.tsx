@@ -13,19 +13,18 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
-      try {
-        const { data } = await axiosInstance.post(
-          '/api-auth/v1/token/refresh/',
-          {
-            refresh: localStorage.getItem('refreshToken')
-          }
-        )
-        axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.access}`
-        setAccessToken(data.access)
-        return axiosInstance(originalRequest)
-      } catch (err) {
-        useAuth.getState().logout()
-      }
+      axiosInstance
+        .post('/api-auth/v1/token/refresh/', {
+          refresh: localStorage.getItem('refreshToken')
+        })
+        .then(({ data }) => {
+          axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.access}`
+          setAccessToken(data.access)
+          return axiosInstance(originalRequest)
+        })
+        .catch(() => {
+          useAuth.getState().logout()
+        })
     }
     return Promise.reject(error)
   }
