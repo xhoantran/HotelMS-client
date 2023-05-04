@@ -1,9 +1,9 @@
-import axios from 'lib/axios'
-import { setAccessToken, setRefreshToken, isValidToken } from 'utils/jwt'
+import axiosInstance, { axiosAuthInstance } from 'lib/axios'
+import { useEffect } from 'react'
+import { isValidToken, setAccessToken, setRefreshToken } from 'utils/jwt'
+import snakify from 'utils/snakify'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import { useEffect } from 'react'
-import snakify from 'utils/snakify'
 
 interface IResetPasswordConfirm {
   uid: string
@@ -40,7 +40,7 @@ const useAuth = create<IAuthState>()(
           name: ''
         },
         login: async (email, password) => {
-          const response = await axios.post('/api-auth/v1/login/', {
+          const response = await axiosAuthInstance.post('/api-auth/v1/login/', {
             email,
             password
           })
@@ -50,17 +50,20 @@ const useAuth = create<IAuthState>()(
           setRefreshToken(refresh_token)
         },
         verifyEmail: async (key) => {
-          await axios.post('/api-auth/v1/registration/verify-email/', {
-            key
-          })
+          await axiosAuthInstance.post(
+            '/api-auth/v1/registration/verify-email/',
+            {
+              key
+            }
+          )
         },
         requestResetPassword: async (email) => {
-          await axios.post('/api-auth/v1/password/reset/', {
+          await axiosAuthInstance.post('/api-auth/v1/password/reset/', {
             email
           })
         },
         resetPasswordConfirm: async (data) => {
-          await axios.post(
+          await axiosAuthInstance.post(
             '/api-auth/v1/password/reset/confirm/',
             snakify(data)
           )
@@ -71,7 +74,7 @@ const useAuth = create<IAuthState>()(
           setRefreshToken()
         },
         me: async () => {
-          const response = await axios.get('/api-auth/v1/user/')
+          const response = await axiosInstance.get('/api-auth/v1/user/')
           const user = await response.data
           set({ isAuthenticated: true, user })
         }
