@@ -1,5 +1,5 @@
-import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { FormProvider, useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 
 import { useChangePassword } from '../api/ChangePassword'
@@ -33,7 +33,7 @@ export function ChangePassword() {
     handleSubmit,
     setError,
     reset,
-    formState: { errors, isSubmitting }
+    formState: { errors }
   } = methods
 
   const onSubmit = handleSubmit((values) => {
@@ -134,7 +134,7 @@ export function ChangePassword() {
             <button
               type="submit"
               className="rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
-              disabled={isSubmitting}
+              disabled={changePasswordMutation.isLoading}
             >
               Change password
             </button>

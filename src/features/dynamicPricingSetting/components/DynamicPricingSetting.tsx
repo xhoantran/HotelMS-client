@@ -1,8 +1,8 @@
-import { Controller, useForm, FormProvider } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as Yup from 'yup'
-import clsx from 'clsx'
 
+import { Spinner } from 'components/Elements'
 import { Toggle } from 'components/Elements/Toggle'
 import { OccupancyRuleList } from 'features/occupancyRules/components/OccupancyRuleList'
 import { TimeRuleList } from 'features/timeRules/components/TimeRuleList'
@@ -53,7 +53,11 @@ export function DynamicPricingSetting({
   })
 
   if (dynamicPricingSettingQuery.isLoading) {
-    return <div>Loading...</div>
+    return (
+      <div className="flex h-48 w-full items-center justify-center">
+        <Spinner />
+      </div>
+    )
   }
 
   return (
@@ -110,12 +114,8 @@ export function DynamicPricingSetting({
               <div className="sm:col-start-1 ">
                 <button
                   type="submit"
-                  className={clsx(
-                    'rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
-                    updateDynamicPricingSettingMutation.isLoading
-                      ? 'cursor-not-allowed bg-gray-200 text-gray-500'
-                      : 'bg-blue-600 text-white hover:bg-blue-500 focus-visible:outline-blue-600'
-                  )}
+                  className="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500"
+                  disabled={updateDynamicPricingSettingMutation.isLoading}
                 >
                   Save
                 </button>
