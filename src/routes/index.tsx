@@ -29,8 +29,8 @@ const EmailConfirm = Loadable(lazy(() => import('features/auth/EmailConfirm')))
 const DashboardLayout = Loadable(
   lazy(() => import('components/Layouts/Dashboard/DashboardLayout'))
 )
-// const Dashboard = Loadable(lazy(() => import('features/mics/routes/Dashboard')));
 const Hotels = Loadable(lazy(() => import('features/hotels/routes')))
+const Settings = Loadable(lazy(() => import('features/settings/routes')))
 
 // MISC
 const NotFoundScreen = Loadable(
@@ -82,7 +82,8 @@ const router = createBrowserRouter([
     children: [
       // { element: <Dashboard />, index: true },
       { element: <Navigate to={PATH_DASHBOARD.hotels} replace />, index: true },
-      { path: 'hotels/*', element: <Hotels /> }
+      { path: 'hotels/*', element: <Hotels /> },
+      { path: 'settings/*', element: <Settings /> }
     ]
   },
 

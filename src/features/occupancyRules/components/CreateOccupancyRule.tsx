@@ -1,11 +1,11 @@
 import { XCircleIcon } from '@heroicons/react/20/solid'
+import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AxiosError } from 'axios'
 import clsx from 'clsx'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import * as Yup from 'yup'
-import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import { useCreateOccupancyRule } from '../api/createOccupancyRule'
 
@@ -56,8 +56,6 @@ export function CreateOccupancyRule(props: CreateOccupancyRuleProps) {
     setOpen(false)
     reset(defaultValues)
   }
-
-  console.log(errors)
 
   const onSubmit = handleSubmit((values) => {
     createOccupancyRuleMutation.mutate(

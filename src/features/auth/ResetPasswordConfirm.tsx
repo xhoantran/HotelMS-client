@@ -1,6 +1,5 @@
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/20/solid'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { AxiosError } from 'axios'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'

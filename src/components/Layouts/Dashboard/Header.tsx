@@ -3,8 +3,10 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Bars3Icon, BellIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import { Fragment } from 'react'
-import type { IUserNavigationItem } from './types'
+import { Link } from 'react-router-dom'
+
 import useAuth from 'stores/useAuth'
+import type { IUserNavigationItem } from './types'
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -109,8 +111,8 @@ export default function Header(props: HeaderProps) {
                   {userNavigation.map((item) => (
                     <Menu.Item key={item.name}>
                       {({ active }) => (
-                        <a
-                          href={item.href}
+                        <Link
+                          to={item.href}
                           className={clsx(
                             active
                               ? 'bg-gray-100 text-gray-900'
@@ -119,7 +121,7 @@ export default function Header(props: HeaderProps) {
                           )}
                         >
                           {item.name}
-                        </a>
+                        </Link>
                       )}
                     </Menu.Item>
                   ))}

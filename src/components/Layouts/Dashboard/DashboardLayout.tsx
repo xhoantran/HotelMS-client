@@ -20,7 +20,7 @@ const navigation = [
   }
 ]
 const userNavigation = [
-  { name: 'Account settings', href: '#' },
+  { name: 'Account settings', href: 'settings/account' },
   { name: 'Support', href: '#' }
 ]
 
