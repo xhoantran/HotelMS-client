@@ -4,8 +4,8 @@ import * as Yup from 'yup'
 
 import { Spinner } from 'components/Elements'
 import { Toggle } from 'components/Elements/Toggle'
-import { OccupancyRuleList } from 'features/occupancyRules/components/OccupancyRuleList'
-import { TimeRuleList } from 'features/timeRules/components/TimeRuleList'
+import { OccupancyRuleList } from 'features/rms/occupancyRules/components/OccupancyRuleList'
+import { TimeRuleList } from 'features/rms/timeRules/components/TimeRuleList'
 import { useDynamicPricingSetting } from '../api/getDynamicPricingSetting'
 import { useUpdateDynamicPricingSetting } from '../api/updateDynamicPricingSetting'
 

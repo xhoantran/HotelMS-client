@@ -1,5 +1,5 @@
-import type { IOccupancyBasedTriggerRule } from 'features/occupancyRules/types'
-import type { ITimeBasedTriggerRule } from 'features/timeRules/types'
+import type { IOccupancyBasedTriggerRule } from 'features/rms/occupancyRules/types'
+import type { ITimeBasedTriggerRule } from 'features/rms/timeRules/types'
 
 export interface IDynamicPricingSetting {
   readonly uuid: string
