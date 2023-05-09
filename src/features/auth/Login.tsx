@@ -11,6 +11,8 @@ import useAuth from 'stores/useAuth'
 import * as Yup from 'yup'
 import { AxiosError } from 'axios'
 
+import { Logo } from 'assets/Logo'
+
 const Login = () => {
   const { login } = useAuth()
   const isMountedRef = useIsMountedRef()
@@ -71,11 +73,7 @@ const Login = () => {
     <Page title="Login - Hanz">
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-20 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=blue&shade=600"
-            alt="Your Company"
-          />
+          <Logo className="mx-auto h-24 w-auto" />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
           </h2>

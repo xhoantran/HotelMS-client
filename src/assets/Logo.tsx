@@ -1,6 +1,6 @@
 import { SVGProps } from 'react'
 
-const Logo = (props: SVGProps<SVGSVGElement>) => {
+export const Logo = (props: SVGProps<SVGSVGElement>) => {
   const { className, width, height, ...rest } = props
   return (
     <svg
@@ -19,7 +19,7 @@ const Logo = (props: SVGProps<SVGSVGElement>) => {
       {...rest}
     >
       <path
-        fill="#FFFFFF"
+        fill="#ffffff"
         opacity="1.000000"
         stroke="none"
         d="
@@ -145,7 +145,7 @@ M3013.000000,864.000000
 z"
       />
       <path
-        fill="#1290CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -515,7 +515,7 @@ M2160.405029,599.218140
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -539,7 +539,7 @@ M1214.084839,1205.410156
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -567,7 +567,7 @@ M3076.708496,638.276428
 z"
       />
       <path
-        fill="#FFFFFF"
+        fill="#ffffff"
         opacity="1.000000"
         stroke="none"
         d="
@@ -603,7 +603,7 @@ M3012.000000,864.000000
 z"
       />
       <path
-        fill="#1892CC"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -620,7 +620,7 @@ M3077.249268,810.184937
 z"
       />
       <path
-        fill="#1190CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -635,7 +635,7 @@ M1220.000000,210.000000
 z"
       />
       <path
-        fill="#ECF4F8"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -659,7 +659,7 @@ M1220.007568,203.700623
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -690,7 +690,7 @@ M3073.983398,213.091705
 z"
       />
       <path
-        fill="#ECF4F8"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -704,7 +704,7 @@ M1216.570312,1214.720215
 z"
       />
       <path
-        fill="#1692CC"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -716,7 +716,7 @@ M3077.740234,809.338501
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -729,7 +729,7 @@ M2945.012207,867.138428
 z"
       />
       <path
-        fill="#1892CC"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -744,7 +744,7 @@ M3078.198730,876.092163
 z"
       />
       <path
-        fill="#ECF4F8"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -756,7 +756,7 @@ M3079.901855,876.191406
 z"
       />
       <path
-        fill="#ECF4F8"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -769,7 +769,7 @@ M3078.840332,536.016968
 z"
       />
       <path
-        fill="#ECF4F8"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -780,7 +780,7 @@ M3202.943848,873.422729
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -790,7 +790,7 @@ M3034.741211,694.048828
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -801,7 +801,7 @@ M3016.825684,718.323059
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -811,7 +811,7 @@ M2996.616699,745.750122
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -821,7 +821,7 @@ M3058.607422,661.729126
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -831,7 +831,7 @@ M2966.826660,786.014099
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -841,7 +841,7 @@ M3050.756836,672.302002
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -851,7 +851,7 @@ M2962.614258,791.842651
 z"
       />
       <path
-        fill="#ECF4F8"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -861,7 +861,7 @@ M3198.682129,595.740356
 z"
       />
       <path
-        fill="#ECF4F8"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -871,7 +871,7 @@ M203.348297,1202.205566
 z"
       />
       <path
-        fill="#1591CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -881,7 +881,7 @@ M206.549744,1205.503174
 z"
       />
       <path
-        fill="#ECF4F8"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -892,7 +892,7 @@ M1213.564575,1205.604980
 z"
       />
       <path
-        fill="#ECF4F8"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -902,7 +902,7 @@ M1214.820557,1207.877930
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -912,7 +912,7 @@ M2974.411621,775.797363
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -922,7 +922,7 @@ M3048.312744,675.654053
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -932,7 +932,7 @@ M3046.556152,677.971741
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -942,7 +942,7 @@ M3014.354980,721.698730
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -952,7 +952,7 @@ M2958.325195,797.629517
 z"
       />
       <path
-        fill="#1892CC"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -962,7 +962,7 @@ M3077.854004,761.504517
 z"
       />
       <path
-        fill="#FEFEFF"
+        fill="#ffffff"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1030,7 +1030,7 @@ M938.719116,605.771301
 z"
       />
       <path
-        fill="#FDFEFE"
+        fill="#ffffff"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1100,7 +1100,7 @@ M2600.210693,781.450562
 z"
       />
       <path
-        fill="#FBFDFE"
+        fill="#ffffff"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1129,7 +1129,7 @@ M1646.115601,874.325439
 z"
       />
       <path
-        fill="#FDFEFE"
+        fill="#ffffff"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1220,7 +1220,7 @@ M2083.000000,753.738647
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1238,7 +1238,7 @@ M1172.641357,1142.070312
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1253,7 +1253,7 @@ M256.735657,262.012756
 z"
       />
       <path
-        fill="#FCFDFE"
+        fill="#ffffff"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1269,7 +1269,7 @@ M2947.969238,536.255005
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1301,7 +1301,7 @@ M1718.324829,873.845703
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1326,7 +1326,7 @@ M1483.402710,535.205566
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1343,7 +1343,7 @@ M1485.174561,873.610901
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1365,7 +1365,7 @@ M2434.398926,860.123413
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1382,7 +1382,7 @@ M2664.958252,540.101807
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1396,7 +1396,7 @@ M1643.516357,738.074402
 z"
       />
       <path
-        fill="#ECF4F8"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1412,7 +1412,7 @@ M2946.805664,598.591064
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1426,7 +1426,7 @@ M2121.800781,535.630493
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1441,7 +1441,7 @@ M2739.335938,543.989868
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1457,7 +1457,7 @@ M2525.690674,555.668579
 z"
       />
       <path
-        fill="#1190CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1474,7 +1474,7 @@ M1484.788940,873.673950
 z"
       />
       <path
-        fill="#1190CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1488,7 +1488,7 @@ M2736.000000,878.000000
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1504,7 +1504,7 @@ M2170.605713,874.581543
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1515,7 +1515,7 @@ M2005.241211,818.049683
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1531,7 +1531,7 @@ M2736.784180,878.013672
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1543,7 +1543,7 @@ M1904.184570,875.235718
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1555,7 +1555,7 @@ M2215.929199,777.912109
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1566,7 +1566,7 @@ M1646.738770,874.851807
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1579,7 +1579,7 @@ M2581.829590,632.072510
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1590,7 +1590,7 @@ M2561.841797,730.179932
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1602,7 +1602,7 @@ M2643.828613,716.165710
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1614,7 +1614,7 @@ M1907.150146,854.123413
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1625,7 +1625,7 @@ M1975.511353,676.152344
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1636,7 +1636,7 @@ M2205.913086,752.171387
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1646,7 +1646,7 @@ M2238.288574,835.663208
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1657,7 +1657,7 @@ M2188.111328,705.898071
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1668,7 +1668,7 @@ M1956.316895,726.275146
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1678,7 +1678,7 @@ M1983.258301,656.013306
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1690,7 +1690,7 @@ M1997.153809,620.000000
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1700,7 +1700,7 @@ M2600.150635,782.275146
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1711,7 +1711,7 @@ M2179.697510,684.074463
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1722,7 +1722,7 @@ M2007.172363,593.999939
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1732,7 +1732,7 @@ M2544.267090,705.957520
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1743,7 +1743,7 @@ M1933.169434,786.003296
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1754,7 +1754,7 @@ M1967.142944,698.001465
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1765,7 +1765,7 @@ M2144.283691,592.014343
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1776,7 +1776,7 @@ M2016.686279,569.993530
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1787,7 +1787,7 @@ M2551.944824,591.466797
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1797,7 +1797,7 @@ M2195.864258,725.933594
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1808,7 +1808,7 @@ M2242.846191,847.914246
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1819,7 +1819,7 @@ M1991.880737,633.981934
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1830,7 +1830,7 @@ M1911.510254,842.098877
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1842,7 +1842,7 @@ M2249.804199,866.054688
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1852,7 +1852,7 @@ M1927.149292,802.087280
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1863,7 +1863,7 @@ M1942.705200,761.993530
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1874,7 +1874,7 @@ M1983.512817,873.674927
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1884,7 +1884,7 @@ M2557.867188,599.665527
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1895,7 +1895,7 @@ M1727.851807,882.701538
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1906,7 +1906,7 @@ M1220.005005,204.488785
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1916,7 +1916,7 @@ M2000.359375,612.301819
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1926,7 +1926,7 @@ M2020.405029,560.300598
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1936,7 +1936,7 @@ M2607.890625,667.568420
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1946,7 +1946,7 @@ M2654.187012,856.166138
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1956,7 +1956,7 @@ M2628.105469,820.454468
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1966,7 +1966,7 @@ M2529.857178,561.709656
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1976,7 +1976,7 @@ M2138.975586,578.252808
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1987,7 +1987,7 @@ M2005.216797,559.067505
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -1998,7 +1998,7 @@ M2249.216553,831.067505
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2009,7 +2009,7 @@ M2001.441650,825.680542
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2020,7 +2020,7 @@ M2159.909180,599.213379
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2031,7 +2031,7 @@ M2218.866943,785.880981
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2041,7 +2041,7 @@ M2520.266602,674.324463
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2051,7 +2051,7 @@ M2543.874023,581.492188
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2061,7 +2061,7 @@ M1171.652710,258.011627
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2071,7 +2071,7 @@ M2537.890625,573.422180
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2081,7 +2081,7 @@ M2165.694824,648.507324
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2091,7 +2091,7 @@ M1985.269775,652.450439
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2101,7 +2101,7 @@ M2652.127930,852.543701
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2111,7 +2111,7 @@ M2662.178223,866.364258
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2121,7 +2121,7 @@ M2599.885742,657.460938
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2131,7 +2131,7 @@ M2538.116211,696.554932
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2141,7 +2141,7 @@ M1923.008057,814.443237
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2151,7 +2151,7 @@ M2196.783203,729.669800
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2161,7 +2161,7 @@ M1642.294556,732.635498
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2171,7 +2171,7 @@ M1929.125488,798.436890
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2181,7 +2181,7 @@ M2576.121582,748.567749
 z"
       />
       <path
-        fill="#1390CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2191,7 +2191,7 @@ M1947.395996,750.437439
 z"
       />
       <path
-        fill="#ECF4F8"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2202,7 +2202,7 @@ M3078.141113,537.481323
 z"
       />
       <path
-        fill="#ECF4F8"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2212,7 +2212,7 @@ M2947.398438,536.200684
 z"
       />
       <path
-        fill="#1491CB"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
@@ -2264,7 +2264,7 @@ M938.421021,606.473816
 z"
       />
       <path
-        fill="#1692CC"
+        fill="#3b82f6"
         opacity="1.000000"
         stroke="none"
         d="
