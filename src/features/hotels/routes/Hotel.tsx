@@ -6,16 +6,15 @@ import { useParams } from 'react-router-dom'
 import { Spinner } from 'components/Elements'
 import { Head } from 'components/Head'
 import { DynamicPricingSetting } from 'features/dynamicPricingSetting/components/DynamicPricingSetting'
+import { RoomTypeList } from 'features/roomTypes/components/RoomTypeList'
 import { formatDate } from 'utils/format'
-
 import { useHotel } from '../api/getHotel'
 import { HotelGeneral } from '../components/HotelGeneral'
 import { SyncHotel } from '../components/SyncHotel'
 
 const tabs = [
   { name: 'General' },
-  // { name: 'Room Types' },
-  // { name: 'Rate Plans' },
+  { name: 'Base rate' },
   { name: 'Dynamic Pricing' }
 ]
 
@@ -38,10 +37,8 @@ export function Hotel() {
     switch (activeTab) {
       case 'General':
         return <HotelGeneral data={hotelQuery.data} />
-      // case 'Room Types':
-      //   return <HotelRoomTypes data={hotelQuery.data} />;
-      // case 'Rate Plans':
-      //   return <HotelRatePlans data={hotelQuery.data} />;
+      case 'Base rate':
+        return <RoomTypeList hotelUuid={hotelUuid} />
       case 'Dynamic Pricing':
         return (
           <DynamicPricingSetting
