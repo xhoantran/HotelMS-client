@@ -1,4 +1,5 @@
-import { HomeModernIcon, Squares2X2Icon } from '@heroicons/react/24/outline'
+import { Squares2X2Icon } from '@heroicons/react/24/outline'
+import { HomeModernIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import DesktopSidebar from './DesktopSidebar'

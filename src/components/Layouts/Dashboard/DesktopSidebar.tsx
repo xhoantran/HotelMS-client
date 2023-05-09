@@ -1,5 +1,7 @@
 import clsx from 'clsx'
 import { Link, useLocation } from 'react-router-dom'
+
+import { Logo } from 'assets/Logo'
 import type { INavigationItem } from './types'
 
 interface DesktopSidebarProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -15,11 +17,7 @@ export default function DesktopSidebar(props: DesktopSidebarProps) {
       {/* Sidebar component, swap this element with another sidebar if you like */}
       <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
         <div className="flex h-16 shrink-0 items-center">
-          <img
-            className="h-8 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=blue&shade=600"
-            alt="Your Company"
-          />
+          <Logo className="h-12 w-auto" />
         </div>
         <nav className="flex flex-1 flex-col">
           <ul role="list" className="flex flex-1 flex-col gap-y-7">

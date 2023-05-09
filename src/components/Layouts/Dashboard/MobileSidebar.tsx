@@ -2,8 +2,11 @@ import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import { Fragment, SetStateAction } from 'react'
-import type { INavigationItem } from './types'
 import { Link, useLocation } from 'react-router-dom'
+
+import { Logo } from 'assets/Logo'
+
+import type { INavigationItem } from './types'
 
 interface MobileSidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   sidebarOpen: boolean
@@ -71,11 +74,7 @@ export default function MobileSidebar(props: MobileSidebarProps) {
               {/* Sidebar component, swap this element with another sidebar if you like */}
               <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
                 <div className="flex h-16 shrink-0 items-center">
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=blue&shade=600"
-                    alt="Your Company"
-                  />
+                  <Logo className="h-12 w-auto" />
                 </div>
                 <nav className="flex flex-1 flex-col">
                   <ul role="list" className="flex flex-1 flex-col gap-y-7">
