@@ -1,23 +1,23 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { AxiosError } from 'axios'
 import { Fragment, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import * as Yup from 'yup'
+import * as z from 'zod'
 
 import { useCreateHotel } from '../api/createHotel'
 
-const CreateHotelSchema = Yup.object().shape({
-  pms: Yup.string().required('PMS is required'),
-  pmsId: Yup.string().required('Property ID is required'),
-  pmsApiKey: Yup.string().required('API Key is required')
+const CreateHotelSchema = z.object({
+  channelManager: z.string().nonempty('Channel manager is required'),
+  cmId: z.string().nonempty('Property ID is required'),
+  cmApiKey: z.string().nonempty('API Key is required')
 })
 
 const defaultValues = {
-  pms: 'CHANNEX',
-  pmsId: '',
-  pmsApiKey: ''
+  channelManager: 'Channex',
+  cmId: '',
+  cmApiKey: ''
 }
 
 export function CreateHotel() {
@@ -25,7 +25,7 @@ export function CreateHotel() {
   const createHotelMutation = useCreateHotel()
 
   const methods = useForm({
-    resolver: yupResolver(CreateHotelSchema),
+    resolver: zodResolver(CreateHotelSchema),
     defaultValues
   })
 
@@ -46,8 +46,7 @@ export function CreateHotel() {
     createHotelMutation.mutate(
       {
         data: {
-          ...values,
-          name: 'Temp Hotel Name'
+          ...values
         }
       },
       {
@@ -96,7 +95,7 @@ export function CreateHotel() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            <div className="fixed inset-0 bg-gray-500/75 transition-opacity" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-hidden">
@@ -155,16 +154,16 @@ export function CreateHotel() {
                           <form onSubmit={onSubmit}>
                             <div>
                               <label
-                                htmlFor="pms"
+                                htmlFor="channelManager"
                                 className="block text-sm font-medium leading-6 text-gray-900"
                               >
                                 Source
                               </label>
                               <div className="mt-2">
                                 <input
-                                  {...register('pms')}
+                                  {...register('channelManager')}
                                   type="text"
-                                  id="pms"
+                                  id="channelManager"
                                   defaultValue="CHANNEX"
                                   disabled
                                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 sm:text-sm sm:leading-6"
@@ -174,36 +173,52 @@ export function CreateHotel() {
                             </div>
                             <div className="mt-8">
                               <label
-                                htmlFor="pmsId"
+                                htmlFor="cmId"
                                 className="block text-sm font-medium leading-6 text-gray-900"
                               >
                                 Property ID
                               </label>
                               <div className="mt-2">
                                 <input
-                                  {...register('pmsId')}
+                                  {...register('cmId')}
                                   type="text"
-                                  id="pmsId"
+                                  id="cmId"
                                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                                   placeholder="e.g. 123e4567-e89b-12d3-a456-426614174000"
                                 />
                               </div>
+                              {errors.cmId && (
+                                <p
+                                  className="mt-2 text-sm text-red-600"
+                                  id="cm-id-error"
+                                >
+                                  {errors.cmId.message}
+                                </p>
+                              )}
                             </div>
                             <div className="mt-8">
                               <label
-                                htmlFor="pmsApiKey"
+                                htmlFor="cmApiKey"
                                 className="block text-sm font-medium leading-6 text-gray-900"
                               >
                                 API Key
                               </label>
                               <div className="mt-2">
                                 <input
-                                  {...register('pmsApiKey')}
+                                  {...register('cmApiKey')}
                                   type="text"
-                                  id="pmsApiKey"
+                                  id="cmApiKey"
                                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                                 />
                               </div>
+                              {errors.cmApiKey && (
+                                <p
+                                  className="mt-2 text-sm text-red-600"
+                                  id="cm-api-key-error"
+                                >
+                                  {errors.cmApiKey.message}
+                                </p>
+                              )}
                             </div>
                             <div className="mt-6 flex items-center justify-end gap-x-6">
                               <button

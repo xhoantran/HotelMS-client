@@ -1,6 +1,6 @@
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
-import * as Yup from 'yup'
+import * as z from 'zod'
 
 import { Spinner } from 'components/Elements'
 import { Toggle } from 'components/Elements/Toggle'
@@ -14,11 +14,19 @@ interface DynamicPricingSettingProps {
   currency: string
 }
 
-const schema = Yup.object().shape({
-  isEnabled: Yup.boolean().required(),
-  isOccupancyBased: Yup.boolean().required(),
-  isTimeBased: Yup.boolean().required()
-})
+const DynamicPricingSettingSchema = z
+  .object({
+    isEnabled: z.boolean(),
+    defaultBaseRate: z.number().nonnegative(),
+    isOccupancyBased: z.boolean(),
+    isTimeBased: z.boolean()
+  })
+  .refine((data) => {
+    if (data.isEnabled) {
+      return data.defaultBaseRate > 0
+    }
+    return true
+  }, 'Default base rate is required')
 
 export function DynamicPricingSetting({
   dynamicPricingSettingUuid,
@@ -35,9 +43,10 @@ export function DynamicPricingSetting({
   const updateDynamicPricingSettingMutation = useUpdateDynamicPricingSetting()
 
   const methods = useForm({
-    resolver: yupResolver(schema),
+    resolver: zodResolver(DynamicPricingSettingSchema),
     defaultValues: {
       isEnabled: dynamicPricingSettingQuery.data?.isEnabled ?? false,
+      defaultBaseRate: dynamicPricingSettingQuery.data?.defaultBaseRate ?? 0,
       isOccupancyBased:
         dynamicPricingSettingQuery.data?.isOccupancyBased ?? false,
       isTimeBased: dynamicPricingSettingQuery.data?.isTimeBased ?? false
@@ -79,6 +88,7 @@ export function DynamicPricingSetting({
                 <Controller
                   control={control}
                   name="isEnabled"
+                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
                   render={({ field: { ref, ...field } }) => (
                     <Toggle {...field} title="Enabled" />
                   )}
@@ -88,6 +98,7 @@ export function DynamicPricingSetting({
                 <Controller
                   control={control}
                   name="isOccupancyBased"
+                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
                   render={({ field: { ref, ...field } }) => (
                     <Toggle
                       {...field}
@@ -101,6 +112,7 @@ export function DynamicPricingSetting({
                 <Controller
                   control={control}
                   name="isTimeBased"
+                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
                   render={({ field: { ref, ...field } }) => (
                     <Toggle
                       {...field}

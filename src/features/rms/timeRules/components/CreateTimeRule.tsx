@@ -1,43 +1,20 @@
 import { XCircleIcon } from '@heroicons/react/20/solid'
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { AxiosError } from 'axios'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import * as Yup from 'yup'
+import * as z from 'zod'
 
 import { useCreateTimeRule } from '../api/createTimeRule'
 
-const CreateTimeRuleSchema = Yup.object().shape({
-  setting: Yup.string().required('Setting is required'),
-  hour: Yup.number()
-    .integer("Hour can't be a decimal number")
-    .required('Hour is required')
-    .min(0, 'Hour must be greater than or equal to 0')
-    .max(23, 'Hour must be less than or equal to 23'),
-  minute: Yup.number()
-    .integer("Minute can't be a decimal number")
-    .required('Minute is required')
-    .min(0, 'Minute must be greater than or equal to 0')
-    .max(59, 'Minute must be less than or equal to 59'),
-  dayAhead: Yup.number().oneOf([0, 1], 'Day ahead must be either 0 or 1'),
-  minOccupancy: Yup.number()
-    .integer("Minimum occupancy can't be a decimal number")
-    .required('Minimum occupancy is required'),
-  maxOccupancy: Yup.number()
-    .integer("Maximum occupancy can't be a decimal number")
-    .required('Maximum occupancy is required')
-    .moreThan(
-      Yup.ref('minOccupancy'),
-      'Maximum occupancy must be greater than minimum occupancy'
-    ),
-  factor: Yup.number()
-    .integer("Factor can't be a decimal number")
-    .required('Factor is required')
-    .notOneOf([0], 'Factor cannot be 0'),
-  isPercentage: Yup.boolean().required(
-    'Either percentage or fixed amount is required'
-  )
+const CreateTimeRuleSchema = z.object({
+  setting: z.string().nonempty(),
+  hour: z.number().int().positive().max(23),
+  dayAhead: z.number().int().positive().max(1),
+  minOccupancy: z.number().int().positive(),
+  factor: z.number().int().positive(),
+  isPercentage: z.boolean()
 })
 
 interface CreateTimeRuleProps {
@@ -52,16 +29,14 @@ export function CreateTimeRule(props: CreateTimeRuleProps) {
   const defaultValues = {
     setting: props.dynamicPricingSettingUuid,
     hour: 0,
-    minute: 0,
     dayAhead: 0,
     minOccupancy: 0,
-    maxOccupancy: 0,
     factor: 0,
     isPercentage: 1
   }
 
   const methods = useForm({
-    resolver: yupResolver(CreateTimeRuleSchema),
+    resolver: zodResolver(CreateTimeRuleSchema),
     defaultValues
   })
 
@@ -84,10 +59,8 @@ export function CreateTimeRule(props: CreateTimeRuleProps) {
         data: {
           setting: values.setting,
           hour: values.hour,
-          minute: values.minute,
           dayAhead: values.dayAhead,
           minOccupancy: values.minOccupancy,
-          maxOccupancy: values.maxOccupancy,
           incrementFactor: values.isPercentage ? 0 : values.factor,
           percentageFactor: values.isPercentage ? values.factor : 0
         }
@@ -155,22 +128,13 @@ export function CreateTimeRule(props: CreateTimeRuleProps) {
           <tr className="border-gray-200">
             <FormProvider {...methods}>
               <td className="py-3 pl-3 text-center text-sm">
-                <div className="flex items-center justify-center gap-1">
+                <div className="flex items-center justify-center gap-2">
                   <input
                     {...register('hour')}
                     type="number"
                     min={0}
                     max={23}
                     id="hour"
-                    className="block rounded-md border-0 px-1 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
-                  />
-                  <span className="text-gray-500">:</span>
-                  <input
-                    {...register('minute')}
-                    type="number"
-                    min={0}
-                    max={23}
-                    id="minute"
                     className="block rounded-md border-0 px-1 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
                   />
                   <select
@@ -185,23 +149,13 @@ export function CreateTimeRule(props: CreateTimeRuleProps) {
                 </div>
               </td>
               <td className="p-3 text-center text-sm text-gray-500">
-                <div className="flex items-center justify-center gap-1">
+                <div className="flex items-center justify-center">
                   <input
                     {...register('minOccupancy')}
                     type="number"
                     min={0}
-                    max={23}
                     id="minOccupancy"
-                    className="block rounded-md border-0 px-1 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
-                  />
-                  <span className="text-gray-500">-</span>
-                  <input
-                    {...register('maxOccupancy')}
-                    type="number"
-                    min={0}
-                    max={23}
-                    id="maxOccupancy"
-                    className="block rounded-md border-0 px-1 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
+                    className="block max-w-[3rem] rounded-md border-0 px-1 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
                   />
                 </div>
               </td>

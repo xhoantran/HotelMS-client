@@ -1,10 +1,10 @@
 import { XCircleIcon } from '@heroicons/react/20/solid'
 import { CheckIcon, PencilIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { AxiosError } from 'axios'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import * as Yup from 'yup'
+import * as z from 'zod'
 
 import { FactorBadge } from 'components/FactorBadge'
 import { formatTime } from 'utils/format'
@@ -13,36 +13,13 @@ import { DeleteTimeRule } from './DeleteTimeRule'
 
 import type { ITimeBasedTriggerRule } from '../types'
 
-const UpdateTimeRuleSchema = Yup.object().shape({
-  setting: Yup.string().required('Setting is required'),
-  hour: Yup.number()
-    .integer('Hour must be an integer')
-    .required('Hour is required')
-    .min(0, 'Hour must be greater than or equal to 0')
-    .max(23, 'Hour must be less than or equal to 23'),
-  minute: Yup.number()
-    .integer('Minute must be an integer')
-    .required('Minute is required')
-    .min(0, 'Minute must be greater than or equal to 0')
-    .max(59, 'Minute must be less than or equal to 59'),
-  dayAhead: Yup.number().oneOf([0, 1]).required('Day ahead is required'),
-  minOccupancy: Yup.number()
-    .integer("Minimum occupancy can't be a decimal number")
-    .required('Minimum occupancy is required'),
-  maxOccupancy: Yup.number()
-    .integer("Maximum occupancy can't be a decimal number")
-    .required('Maximum occupancy is required')
-    .moreThan(
-      Yup.ref('minOccupancy'),
-      'Maximum occupancy must be greater than minimum occupancy'
-    ),
-  factor: Yup.number()
-    .integer("Factor can't be a decimal number")
-    .required('Factor is required')
-    .notOneOf([0], 'Factor cannot be 0'),
-  isPercentage: Yup.boolean().required(
-    'Either percentage or fixed amount is required'
-  )
+const UpdateTimeRuleSchema = z.object({
+  setting: z.string().nonempty(),
+  hour: z.number().int().positive().max(23),
+  dayAhead: z.number().int().positive().max(1),
+  minOccupancy: z.number().int().positive(),
+  factor: z.number().int().positive(),
+  isPercentage: z.boolean()
 })
 
 interface UpdateTimeRuleProps {
@@ -57,10 +34,8 @@ export function UpdateTimeRule(props: UpdateTimeRuleProps) {
   const defaultValues = {
     setting: props.timeRule.setting,
     hour: props.timeRule.hour,
-    minute: props.timeRule.minute,
     dayAhead: props.timeRule.dayAhead,
     minOccupancy: props.timeRule.minOccupancy,
-    maxOccupancy: props.timeRule.maxOccupancy,
     factor:
       props.timeRule.incrementFactor !== 0
         ? props.timeRule.incrementFactor
@@ -69,7 +44,7 @@ export function UpdateTimeRule(props: UpdateTimeRuleProps) {
   }
 
   const methods = useForm({
-    resolver: yupResolver(UpdateTimeRuleSchema),
+    resolver: zodResolver(UpdateTimeRuleSchema),
     defaultValues
   })
 
@@ -89,9 +64,7 @@ export function UpdateTimeRule(props: UpdateTimeRuleProps) {
       {
         data: {
           hour: values.hour,
-          minute: values.minute,
           minOccupancy: values.minOccupancy,
-          maxOccupancy: values.maxOccupancy,
           dayAhead: values.dayAhead,
           incrementFactor: values.isPercentage ? 0 : values.factor,
           percentageFactor: values.isPercentage ? values.factor : 0
@@ -173,15 +146,6 @@ export function UpdateTimeRule(props: UpdateTimeRuleProps) {
                     id="hour"
                     className="block rounded-md border-0 px-1 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
                   />
-                  <span className="text-gray-500">:</span>
-                  <input
-                    {...register('minute')}
-                    type="number"
-                    min={0}
-                    max={59}
-                    id="minute"
-                    className="block rounded-md border-0 px-1 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
-                  />
                   <select
                     {...register('dayAhead')}
                     id="dayAhead"
@@ -194,20 +158,12 @@ export function UpdateTimeRule(props: UpdateTimeRuleProps) {
                 </div>
               </td>
               <td className="p-3 text-center text-sm text-gray-500">
-                <div className="flex items-center justify-center gap-1">
+                <div className="flex items-center justify-center">
                   <input
                     {...register('minOccupancy')}
                     type="number"
                     id="minOccupancy"
-                    className="block w-8 rounded-md border-0 px-1 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
-                  />
-                  <span className="text-gray-500">-</span>
-                  <input
-                    {...register('maxOccupancy')}
-                    type="number"
-                    inputMode="numeric"
-                    id="maxOccupancy"
-                    className="block w-8 rounded-md border-0 px-1 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
+                    className="block max-w-[3rem] rounded-md border-0 px-1 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
                   />
                 </div>
               </td>
@@ -276,16 +232,16 @@ export function UpdateTimeRule(props: UpdateTimeRuleProps) {
           <tr key={props.timeRule.uuid} className="border-t border-gray-200">
             <td className="py-3 pl-3 text-center text-sm">
               <div className="font-medium text-gray-900">
-                {formatTime(props.timeRule.hour, props.timeRule.minute)}
+                {formatTime(props.timeRule.hour)}
                 {props.timeRule.dayAhead === 1 ? ' Tomorrow' : ' Today'}
               </div>
             </td>
             <td>
-              <div className="p-3 text-center text-sm text-gray-500">
-                {props.timeRule.minOccupancy} - {props.timeRule.maxOccupancy}
+              <div className="p-3 text-center text-sm font-medium">
+                {props.timeRule.minOccupancy} or above
               </div>
             </td>
-            <td className="p-3 text-center text-sm text-gray-500">
+            <td className="p-3 text-center text-sm font-medium">
               <FactorBadge
                 percentage={props.timeRule.percentageFactor}
                 increment={props.timeRule.incrementFactor}

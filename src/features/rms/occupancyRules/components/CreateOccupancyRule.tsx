@@ -1,25 +1,18 @@
 import { XCircleIcon } from '@heroicons/react/20/solid'
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { AxiosError } from 'axios'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import * as Yup from 'yup'
+import * as z from 'zod'
 
 import { useCreateOccupancyRule } from '../api/createOccupancyRule'
 
-const CreateOccupancyRuleSchema = Yup.object().shape({
-  setting: Yup.string().required('Setting is required'),
-  minOccupancy: Yup.number()
-    .integer("Minimum occupancy can't be a decimal number")
-    .required('Minimum occupancy is required'),
-  factor: Yup.number()
-    .integer("Factor can't be a decimal number")
-    .required('Factor is required')
-    .notOneOf([0], 'Factor cannot be 0'),
-  isPercentage: Yup.boolean().required(
-    'Either percentage or fixed amount is required'
-  )
+const CreateOccupancyRuleSchema = z.object({
+  setting: z.string().nonempty(),
+  minOccupancy: z.number().int().positive(),
+  factor: z.number().int().positive(),
+  isPercentage: z.boolean()
 })
 
 interface CreateOccupancyRuleProps {
@@ -39,7 +32,7 @@ export function CreateOccupancyRule(props: CreateOccupancyRuleProps) {
   }
 
   const methods = useForm({
-    resolver: yupResolver(CreateOccupancyRuleSchema),
+    resolver: zodResolver(CreateOccupancyRuleSchema),
     defaultValues
   })
 
