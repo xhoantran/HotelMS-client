@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 
 import { Spinner } from 'components/Elements'
 import { Head } from 'components/Head'
-import { RoomTypeList } from 'features/pms/roomTypes/components/RoomTypeList'
+import { RoomTypeList } from 'features/pms/roomTypes/components/RoomTypeListCopy'
 import { DynamicPricingSetting } from 'features/rms/dynamicPricingSetting/components/DynamicPricingSetting'
 import { formatDate } from 'utils/format'
 import { useHotel } from '../api/getHotel'
@@ -14,7 +14,7 @@ import { SyncHotel } from '../components/SyncHotel'
 
 const tabs = [
   { name: 'General' },
-  { name: 'Base rate' },
+  { name: 'Room types & Rate plans' },
   { name: 'Dynamic Pricing' }
 ]
 
@@ -37,7 +37,7 @@ export function Hotel() {
     switch (activeTab) {
       case 'General':
         return <HotelGeneral data={hotelQuery.data} />
-      case 'Base rate':
+      case 'Room types & Rate plans':
         return <RoomTypeList hotelUuid={hotelUuid} />
       case 'Dynamic Pricing':
         return (

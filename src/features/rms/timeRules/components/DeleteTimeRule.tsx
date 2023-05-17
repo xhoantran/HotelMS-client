@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import { Fragment, useRef, useState } from 'react'
 
 import { useDeleteTimeRule } from '../api/deleteTimeRule'
+import { formatTime } from 'utils/format'
 
 import type { ITimeBasedTriggerRule } from '../types'
 
@@ -38,7 +39,7 @@ export function DeleteTimeRule(props: DeleteTimeRuleProps) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+              <div className="fixed inset-0 bg-gray-500/75 transition-opacity" />
             </Transition.Child>
 
             <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -73,17 +74,15 @@ export function DeleteTimeRule(props: DeleteTimeRuleProps) {
                           </p>
                           <ul className="my-1 list-inside list-disc text-sm text-gray-800">
                             <li>
-                              <span>Trigger time:</span> {props.timeRule.hour}:
-                              {props.timeRule.minute < 10 ? '0' : ''}
-                              {props.timeRule.minute}
+                              <span>Trigger time:</span>{' '}
+                              {formatTime(props.timeRule.hour)}
                               {props.timeRule.dayAhead === 0
                                 ? ' (today)'
                                 : ` (${props.timeRule.dayAhead} day(s) ahead)`}
                             </li>
                             <li>
                               <span>Occupancy:</span>{' '}
-                              {props.timeRule.minOccupancy} -{' '}
-                              {props.timeRule.maxOccupancy}
+                              {props.timeRule.minOccupancy} or above
                             </li>
                             <li>
                               <span>Factor:</span>{' '}
@@ -94,7 +93,7 @@ export function DeleteTimeRule(props: DeleteTimeRuleProps) {
                           </ul>
 
                           <p className="text-sm text-gray-800">
-                            Please note that all the rates under this rule will
+                            Please note that all the rates under affected will
                             be remain{' '}
                             <span className="font-semibold text-black">
                               unchanged.

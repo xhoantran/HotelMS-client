@@ -10,10 +10,9 @@ import type { IHotel } from '../types'
 
 export type CreateHotelDTO = {
   data: {
-    name?: string
-    pms: string
-    pmsId: string
-    pmsApiKey: string
+    channelManager: string
+    cmId: string
+    cmApiKey: string
   }
 }
 
@@ -21,7 +20,7 @@ export const createHotel = async (
   hotelDto: CreateHotelDTO
 ): Promise<IHotel> => {
   const { data } = (await axiosInstance.post(
-    '/api/v1/pms/hotel/',
+    '/api/v1/cm/hotel/setup/',
     snakify(hotelDto.data)
   )) as { data: IHotel }
   return camelize(data)
@@ -47,7 +46,7 @@ export const useCreateHotel = ({ config }: useCreateHotelOptions = {}) => {
       queryClient.invalidateQueries(['hotels'])
       addNotification({
         type: 'success',
-        title: 'Hotel created successfully'
+        title: 'Hotel set up request sent'
       })
     },
     ...config,

@@ -38,7 +38,7 @@ export function DeleteOccupancyRule(props: DeleteOccupancyRuleProps) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+              <div className="fixed inset-0 bg-gray-500/75 transition-opacity" />
             </Transition.Child>
 
             <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -74,7 +74,7 @@ export function DeleteOccupancyRule(props: DeleteOccupancyRuleProps) {
                           <ul className="my-1 list-inside list-disc text-sm text-gray-800">
                             <li>
                               <span>Occupancy:</span>{' '}
-                              {props.occupancyRule.minOccupancy}
+                              {props.occupancyRule.minOccupancy} or above
                             </li>
                             <li>
                               <span>Factor:</span>{' '}
@@ -85,7 +85,7 @@ export function DeleteOccupancyRule(props: DeleteOccupancyRuleProps) {
                           </ul>
 
                           <p className="text-sm text-gray-800">
-                            Please note that all the rates under this rule will
+                            Please note that all the rates under affected will
                             be remain{' '}
                             <span className="font-semibold text-black">
                               unchanged.

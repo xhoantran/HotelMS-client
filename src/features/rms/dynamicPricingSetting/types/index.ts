@@ -4,6 +4,7 @@ import type { ITimeBasedTriggerRule } from 'features/rms/timeRules/types'
 export interface IDynamicPricingSetting {
   readonly uuid: string
   isEnabled: boolean
+  defaultBaseRate: number
   isOccupancyBased: boolean
   occupancyBasedTriggerRules: IOccupancyBasedTriggerRule[]
   isTimeBased: boolean

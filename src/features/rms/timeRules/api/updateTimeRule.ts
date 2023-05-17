@@ -11,10 +11,8 @@ import type { ITimeBasedTriggerRule } from '../types'
 export type UpdateTimeRuleDTO = {
   data: {
     hour: number
-    minute: number
     dayAhead: number
     minOccupancy: number
-    maxOccupancy: number
     percentageFactor: number
     incrementFactor: number
   }

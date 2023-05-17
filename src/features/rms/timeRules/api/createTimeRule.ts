@@ -12,10 +12,8 @@ export type CreateTimeRuleDTO = {
   data: {
     setting: string
     hour: number
-    minute: number
     dayAhead: number
     minOccupancy: number
-    maxOccupancy: number
     percentageFactor: number
     incrementFactor: number
   }

@@ -20,46 +20,6 @@ export function HotelGeneral(props: HotelGeneralProps) {
         </div>
 
         <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
-          <div className="sm:col-span-2">
-            <label
-              htmlFor="pms"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              PMS
-            </label>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="pms"
-                id="pms"
-                autoComplete="given-name"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 sm:text-sm sm:leading-6"
-                disabled
-                defaultValue={data.pms}
-              />
-            </div>
-          </div>
-
-          <div className="sm:col-span-4">
-            <label
-              htmlFor="property-id"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Property ID
-            </label>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="property-id"
-                id="property-id"
-                autoComplete="given-name"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 sm:text-sm sm:leading-6"
-                disabled
-                defaultValue={data.pmsId}
-              />
-            </div>
-          </div>
-
           <div className="col-span-full">
             <label
               htmlFor="street-address"

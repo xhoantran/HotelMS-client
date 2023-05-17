@@ -54,7 +54,7 @@ export function OccupancyRuleList(props: IOccupancyRuleListProps) {
                   </th>
                   <th
                     scope="col"
-                    className="w-2/4 p-3 text-center text-sm font-semibold text-gray-900"
+                    className="w-1/2 p-3 text-center text-sm font-semibold text-gray-900"
                   >
                     Factor
                   </th>

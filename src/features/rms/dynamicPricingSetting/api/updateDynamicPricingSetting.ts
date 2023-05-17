@@ -10,6 +10,7 @@ import { IDynamicPricingSetting } from '../types'
 export type IUpdateDynamicPricingSettingVariables = {
   data: {
     isEnabled: boolean
+    defaultBaseRate: number
     isOccupancyBased: boolean
     isTimeBased: boolean
   }

@@ -41,7 +41,7 @@ export function TimeRuleList(props: ITimeRuleListProps) {
                 <tr>
                   <th
                     scope="col"
-                    className="py-3 pl-3 text-center text-sm font-semibold text-gray-900"
+                    className="w-1/4 py-3 pl-3 text-center text-sm font-semibold text-gray-900"
                   >
                     Time
                   </th>
@@ -53,11 +53,11 @@ export function TimeRuleList(props: ITimeRuleListProps) {
                   </th>
                   <th
                     scope="col"
-                    className="p-3 text-center text-sm font-semibold text-gray-900"
+                    className="w-1/4 p-3 text-center text-sm font-semibold text-gray-900"
                   >
                     Factor
                   </th>
-                  <th scope="col" className="p-3">
+                  <th scope="col" className="w-1/3 p-3">
                     <span className="sr-only">Select</span>
                   </th>
                 </tr>
