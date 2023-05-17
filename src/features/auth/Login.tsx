@@ -1,6 +1,5 @@
 import { EyeIcon, EyeSlashIcon, XCircleIcon } from '@heroicons/react/20/solid'
 import { zodResolver } from '@hookform/resolvers/zod'
-import clsx from 'clsx'
 import Page from 'components/Page'
 import useIsMountedRef from 'hooks/useIsMountedRef'
 import { useState } from 'react'
@@ -167,10 +166,7 @@ const Login = () => {
               <div>
                 <button
                   type="submit"
-                  className={clsx(
-                    'flex w-full justify-center rounded-md bg-blue-600 p-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600',
-                    isSubmitting && 'cursor-not-allowed opacity-50'
-                  )}
+                  className="flex w-full justify-center rounded-md bg-blue-600 p-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
                   disabled={isSubmitting}
                 >
                   Sign in
