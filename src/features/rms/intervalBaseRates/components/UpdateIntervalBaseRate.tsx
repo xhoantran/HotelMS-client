@@ -6,43 +6,34 @@ import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import * as z from 'zod'
 
-import { FactorBadge } from 'components/FactorBadge'
-import { useUpdateOccupancyRule } from '../api/updateOccupancyRule'
-import { DeleteOccupancyRule } from './DeleteOccupancyRule'
+import { useUpdateIntervalBaseRate } from '../api/updateIntervalBaseRate'
+import { DeleteIntervalBaseRate } from './DeleteIntervalBaseRate'
 
-import type { IOccupancyBasedTriggerRule } from '../types'
+import type { IIntervalBaseRate } from '../types'
 
-const UpdateOccupancyRuleSchema = z.object({
-  minOccupancy: z.number().int().nonnegative(),
-  factor: z
-    .number()
-    .int()
-    .refine((data) => data !== 0, {
-      message: 'Factor must be different than 0'
-    }),
-  isPercentage: z.number().refine((data) => data === 0 || data === 1)
+const UpdateIntervalBaseRateSchema = z.object({
+  startDate: z.string().nonempty(),
+  endDate: z.string().nonempty(),
+  baseRate: z.number().positive()
 })
 
-interface UpdateOccupancyRuleProps {
-  occupancyRule: IOccupancyBasedTriggerRule
+interface UpdateIntervalBaseRateProps {
+  intervalBaseRate: IIntervalBaseRate
   currency: string
 }
 
-export function UpdateOccupancyRule(props: UpdateOccupancyRuleProps) {
+export function UpdateIntervalBaseRate(props: UpdateIntervalBaseRateProps) {
   const [open, setOpen] = useState(false)
-  const updateOccupancyRuleMutation = useUpdateOccupancyRule()
+  const updateIntervalBaseRateMutation = useUpdateIntervalBaseRate()
 
   const defaultValues = {
-    minOccupancy: props.occupancyRule.minOccupancy,
-    factor:
-      props.occupancyRule.incrementFactor !== 0
-        ? props.occupancyRule.incrementFactor
-        : props.occupancyRule.percentageFactor,
-    isPercentage: props.occupancyRule.incrementFactor !== 0 ? 0 : 1
+    startDate: props.intervalBaseRate.dates.startDate,
+    endDate: props.intervalBaseRate.dates.endDate,
+    baseRate: props.intervalBaseRate.baseRate
   }
 
   const methods = useForm({
-    resolver: zodResolver(UpdateOccupancyRuleSchema),
+    resolver: zodResolver(UpdateIntervalBaseRateSchema),
     defaultValues
   })
 
@@ -53,19 +44,25 @@ export function UpdateOccupancyRule(props: UpdateOccupancyRuleProps) {
     formState: { errors }
   } = methods
 
+  const closeSlideOver = () => {
+    setOpen(false)
+  }
+
   const onSubmit = handleSubmit((values) => {
-    updateOccupancyRuleMutation.mutate(
+    updateIntervalBaseRateMutation.mutate(
       {
         data: {
-          minOccupancy: values.minOccupancy,
-          incrementFactor: values.isPercentage ? 0 : values.factor,
-          percentageFactor: values.isPercentage ? values.factor : 0
+          dates: {
+            startDate: values.startDate,
+            endDate: values.endDate
+          },
+          baseRate: values.baseRate
         },
-        occupancyRuleUuid: props.occupancyRule.uuid
+        intervalBaseRateUuid: props.intervalBaseRate.uuid
       },
       {
         onSuccess: () => {
-          setOpen(false)
+          closeSlideOver()
         },
         onError: (err: unknown) => {
           if (typeof err === 'string') {
@@ -77,9 +74,7 @@ export function UpdateOccupancyRule(props: UpdateOccupancyRuleProps) {
             const errorMessage: string = err.response?.data?.detail[0]
             setError('root', {
               type: 'manual',
-              message: errorMessage.includes('unique')
-                ? 'This minimum occupancy already exists'
-                : 'Something went wrong'
+              message: errorMessage
             })
           } else {
             setError('root', {
@@ -132,39 +127,40 @@ export function UpdateOccupancyRule(props: UpdateOccupancyRuleProps) {
               <td className="py-3 pl-3 text-center text-sm">
                 <div className="flex items-center justify-center">
                   <input
-                    {...register('minOccupancy', { valueAsNumber: true })}
-                    type="number"
+                    {...register('startDate')}
+                    type="date"
+                    id="startDate"
+                    className="block max-w-[8rem] rounded-md border-0 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
+                  />
+                </div>
+              </td>
+              <td className="py-3 pl-3 text-center text-sm">
+                <div className="flex items-center justify-center">
+                  <input
+                    {...register('endDate')}
+                    type="date"
                     min={0}
-                    id="minOccupancy"
-                    className="block max-w-[3rem] rounded-md border-0 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
+                    id="endDate"
+                    className="block max-w-[8rem] rounded-md border-0 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
                   />
                 </div>
               </td>
               <td className="p-3 text-center text-sm text-gray-500">
-                <div className="flex items-center justify-center">
-                  <div className="max-w-[8.5rem]">
-                    <div className="relative rounded-md shadow-sm">
-                      <input
-                        {...register('factor', { valueAsNumber: true })}
-                        type="text"
-                        id="factor"
-                        className="block w-full rounded-md border-0 py-1.5 pr-16 text-right text-sm text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
-                        placeholder="+10"
-                      />
-                      <div className="absolute inset-y-0 right-0 flex items-center">
-                        <label htmlFor="factor-type" className="sr-only">
-                          Factor type
-                        </label>
-                        <select
-                          {...register('isPercentage', { valueAsNumber: true })}
-                          id="factor-type"
-                          className="h-full rounded-md border-0 bg-transparent py-0 pl-1 pr-7 text-sm text-gray-500 focus:ring-2 focus:ring-inset focus:ring-blue-600"
-                        >
-                          <option value={0}>{props.currency}</option>
-                          <option value={1}>%</option>
-                        </select>
-                      </div>
-                    </div>
+                <div className="relative rounded-md shadow-sm">
+                  <input
+                    type="text"
+                    {...register('baseRate', { valueAsNumber: true })}
+                    id="baseRate"
+                    autoComplete="baseRate"
+                    className="block w-full rounded-md border-0 py-1.5 pr-12 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:opacity-50 disabled:ring-gray-200 sm:text-sm sm:leading-6"
+                  />
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                    <span
+                      className="text-gray-500 sm:text-sm"
+                      id="baseRateCurrency"
+                    >
+                      {props.currency}
+                    </span>
                   </div>
                 </div>
               </td>
@@ -173,7 +169,7 @@ export function UpdateOccupancyRule(props: UpdateOccupancyRuleProps) {
                   <button
                     type="button"
                     className="rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500"
-                    disabled={updateOccupancyRuleMutation.isLoading}
+                    disabled={updateIntervalBaseRateMutation.isLoading}
                     onClick={onSubmit}
                   >
                     <CheckIcon
@@ -182,13 +178,13 @@ export function UpdateOccupancyRule(props: UpdateOccupancyRuleProps) {
                     />
                     <span className="hidden lg:block">Save</span>
                     <span className="sr-only">
-                      , {props.occupancyRule.uuid}
+                      , {props.intervalBaseRate.uuid}
                     </span>
                   </button>
                   <button
                     type="button"
                     className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
-                    onClick={() => setOpen(false)}
+                    onClick={closeSlideOver}
                   >
                     <XMarkIcon
                       className="block h-4 w-4 stroke-[2px] lg:hidden"
@@ -196,7 +192,7 @@ export function UpdateOccupancyRule(props: UpdateOccupancyRuleProps) {
                     />
                     <span className="hidden lg:block">Cancel</span>
                     <span className="sr-only">
-                      , {props.occupancyRule.uuid}
+                      , {props.intervalBaseRate.uuid}
                     </span>
                   </button>
                 </div>
@@ -207,20 +203,21 @@ export function UpdateOccupancyRule(props: UpdateOccupancyRuleProps) {
       ) : (
         <>
           <tr
-            key={props.occupancyRule.uuid}
+            key={props.intervalBaseRate.uuid}
             className="border-t border-gray-200"
           >
             <td className="py-3 pl-3 text-center text-sm">
               <div className="truncate font-medium text-gray-900">
-                {props.occupancyRule.minOccupancy} or above
+                {props.intervalBaseRate.dates.startDate}
+              </div>
+            </td>
+            <td className="py-3 text-center text-sm">
+              <div className="truncate font-medium text-gray-900">
+                {props.intervalBaseRate.dates.endDate}
               </div>
             </td>
             <td className="p-3 text-center text-sm text-gray-500">
-              <FactorBadge
-                percentage={props.occupancyRule.percentageFactor}
-                increment={props.occupancyRule.incrementFactor}
-                currency={props.currency}
-              />
+              {props.intervalBaseRate.baseRate} {props.currency}
             </td>
             <td className="w-fit p-3 text-right text-sm font-medium">
               <div className="inline-flex  items-center gap-2">
@@ -234,9 +231,14 @@ export function UpdateOccupancyRule(props: UpdateOccupancyRuleProps) {
                     aria-hidden="true"
                   />
                   <span className="hidden lg:block">Edit</span>
-                  <span className="sr-only">, {props.occupancyRule.uuid}</span>
+                  <span className="sr-only">
+                    , {props.intervalBaseRate.uuid}
+                  </span>
                 </button>
-                <DeleteOccupancyRule occupancyRule={props.occupancyRule} />
+                <DeleteIntervalBaseRate
+                  intervalBaseRate={props.intervalBaseRate}
+                  currency={props.currency}
+                />
               </div>
             </td>
           </tr>

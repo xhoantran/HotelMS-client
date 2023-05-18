@@ -1,45 +1,29 @@
-import clsx from 'clsx'
+import { CreateIntervalBaseRate } from './CreateIntervalBaseRate'
+import { UpdateIntervalBaseRate } from './UpdateIntervalBaseRate'
 
-import { CreateTimeRule } from './CreateTimeRule'
-import { UpdateTimeRule } from './UpdateTimeRule'
+import type { IIntervalBaseRate } from '../types'
 
-import type { ITimeBasedTriggerRule } from '../types'
-
-interface ITimeRuleListProps {
-  isTimeBased: boolean
-  timeRules: ITimeBasedTriggerRule[]
+interface IIntervalBaseRateListProps {
+  intervalBaseRates: IIntervalBaseRate[]
   dynamicPricingSettingUuid: string
   currency: string
 }
 
-export function TimeRuleList(props: ITimeRuleListProps) {
-  const { isTimeBased, timeRules, currency, dynamicPricingSettingUuid } = props
-  timeRules.sort(
-    (a, b) =>
-      a.hour - b.hour ||
-      a.dayAhead - b.dayAhead ||
-      a.minOccupancy - b.minOccupancy
-  )
+export function IntervalBaseRateList(props: IIntervalBaseRateListProps) {
+  const { intervalBaseRates, currency, dynamicPricingSettingUuid } = props
 
   return (
     <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
       <div>
         <h2 className="text-base font-semibold leading-7 text-gray-900">
-          Time Based Trigger Rules
+          Interval Base Rates
         </h2>
         <p className="mt-1 text-sm leading-6 text-gray-600">
-          Rate will be applied when the number of occupied rooms above the
-          specified threshold. The rule with the highest threshold will be
-          applied.
+          Override the base rate for specific date ranges.
         </p>
       </div>
 
-      <div
-        className={clsx(
-          'grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2',
-          !isTimeBased && 'pointer-events-none cursor-not-allowed opacity-50'
-        )}
-      >
+      <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
         <div className="col-span-6">
           <div className="rounded-md ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-300">
@@ -49,34 +33,34 @@ export function TimeRuleList(props: ITimeRuleListProps) {
                     scope="col"
                     className="w-1/4 py-3 pl-3 text-center text-sm font-semibold text-gray-900"
                   >
-                    Time
+                    Start Date
                   </th>
                   <th
                     scope="col"
-                    className="p-3 text-center text-sm font-semibold text-gray-900"
+                    className="w-1/4 py-3 text-center text-sm font-semibold text-gray-900"
                   >
-                    Occupancy
+                    End Date
                   </th>
                   <th
                     scope="col"
                     className="w-1/4 p-3 text-center text-sm font-semibold text-gray-900"
                   >
-                    Factor
+                    Base Rate
                   </th>
-                  <th scope="col" className="w-1/3 p-3">
+                  <th scope="col" className="p-3">
                     <span className="sr-only">Select</span>
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {timeRules.map((rule) => (
-                  <UpdateTimeRule
-                    key={rule.uuid}
-                    timeRule={rule}
+                {intervalBaseRates.map((intervalBaseRate) => (
+                  <UpdateIntervalBaseRate
+                    key={intervalBaseRate.uuid}
+                    intervalBaseRate={intervalBaseRate}
                     currency={currency}
                   />
                 ))}
-                <CreateTimeRule
+                <CreateIntervalBaseRate
                   dynamicPricingSettingUuid={dynamicPricingSettingUuid}
                   currency={currency}
                 />

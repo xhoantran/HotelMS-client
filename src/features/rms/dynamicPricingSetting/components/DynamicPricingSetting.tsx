@@ -4,6 +4,7 @@ import * as z from 'zod'
 
 import { Spinner } from 'components/Elements'
 import { Toggle } from 'components/Elements/Toggle'
+import { IntervalBaseRateList } from 'features/rms/intervalBaseRates/components/IntervalBaseRateList'
 import { OccupancyRuleList } from 'features/rms/occupancyRules/components/OccupancyRuleList'
 import { TimeRuleList } from 'features/rms/timeRules/components/TimeRuleList'
 import { useDynamicPricingSetting } from '../api/getDynamicPricingSetting'
@@ -131,7 +132,7 @@ export function DynamicPricingSetting({
                     {...register('defaultBaseRate', { valueAsNumber: true })}
                     id="defaultBaseRate"
                     autoComplete="defaultBaseRate"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:opacity-50 disabled:ring-gray-200 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 pr-12 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:opacity-50 disabled:ring-gray-200 sm:text-sm sm:leading-6"
                     disabled={!isEnabled}
                   />
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
@@ -188,6 +189,14 @@ export function DynamicPricingSetting({
           </div>
         </form>
       </FormProvider>
+
+      <IntervalBaseRateList
+        intervalBaseRates={
+          dynamicPricingSettingQuery.data?.intervalBaseRates ?? []
+        }
+        dynamicPricingSettingUuid={dynamicPricingSettingQuery.data?.uuid ?? ''}
+        currency={currency}
+      />
 
       <OccupancyRuleList
         isOccupancyBased={

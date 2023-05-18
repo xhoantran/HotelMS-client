@@ -14,7 +14,6 @@ import { DeleteTimeRule } from './DeleteTimeRule'
 import type { ITimeBasedTriggerRule } from '../types'
 
 const UpdateTimeRuleSchema = z.object({
-  setting: z.string().nonempty(),
   hour: z.number().int().positive().max(23),
   dayAhead: z.number().int().nonnegative().max(1),
   minOccupancy: z.number().int().nonnegative(),
@@ -37,7 +36,6 @@ export function UpdateTimeRule(props: UpdateTimeRuleProps) {
   const updateOccupancyRuleMutation = useUpdateTimeRule()
 
   const defaultValues = {
-    setting: props.timeRule.setting,
     hour: props.timeRule.hour,
     dayAhead: props.timeRule.dayAhead,
     minOccupancy: props.timeRule.minOccupancy,
@@ -60,10 +58,6 @@ export function UpdateTimeRule(props: UpdateTimeRuleProps) {
     formState: { errors }
   } = methods
 
-  const closeSlideOver = () => {
-    setOpen(false)
-  }
-
   const onSubmit = handleSubmit((values) => {
     updateOccupancyRuleMutation.mutate(
       {
@@ -78,7 +72,7 @@ export function UpdateTimeRule(props: UpdateTimeRuleProps) {
       },
       {
         onSuccess: () => {
-          closeSlideOver()
+          setOpen(false)
         },
         onError: (err: unknown) => {
           if (typeof err === 'string') {
@@ -142,7 +136,7 @@ export function UpdateTimeRule(props: UpdateTimeRuleProps) {
           {/* Form */}
           <tr className="border-gray-200">
             <FormProvider {...methods}>
-              <td className="py-3 pl-3 text-left text-sm">
+              <td className="py-3 pl-3 text-center text-sm">
                 <div className="flex items-center justify-center gap-1">
                   <input
                     {...register('hour', { valueAsNumber: true })}
@@ -219,7 +213,7 @@ export function UpdateTimeRule(props: UpdateTimeRuleProps) {
                   <button
                     type="button"
                     className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
-                    onClick={closeSlideOver}
+                    onClick={() => setOpen(false)}
                   >
                     <XMarkIcon
                       className="block h-4 w-4 stroke-[2px] lg:hidden"

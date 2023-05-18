@@ -6,40 +6,31 @@ import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import * as z from 'zod'
 
-import { useCreateTimeRule } from '../api/createTimeRule'
+import { useCreateIntervalBaseRate } from '../api/createIntervalBaseRate'
 
-const CreateTimeRuleSchema = z.object({
-  hour: z.number().int().positive().max(23),
-  dayAhead: z.number().int().nonnegative().max(1),
-  minOccupancy: z.number().int().nonnegative(),
-  factor: z
-    .number()
-    .int()
-    .refine((data) => data !== 0, {
-      message: 'Factor must be different than 0'
-    }),
-  isPercentage: z.number().refine((data) => data === 0 || data === 1)
+const CreateIntervalBaseRateSchema = z.object({
+  startDate: z.string().nonempty(),
+  endDate: z.string().nonempty(),
+  baseRate: z.number().positive()
 })
 
-interface CreateTimeRuleProps {
+interface CreateIntervalBaseRateProps {
   dynamicPricingSettingUuid: string
   currency: string
 }
 
-export function CreateTimeRule(props: CreateTimeRuleProps) {
-  const [open, setOpen] = useState(false)
-  const createTimeRuleMutation = useCreateTimeRule()
+const defaultValues = {
+  startDate: new Date(Date.now()).toISOString().split('T')[0],
+  endDate: new Date(Date.now() + 86400000).toISOString().split('T')[0],
+  baseRate: 0
+}
 
-  const defaultValues = {
-    hour: 0,
-    dayAhead: 0,
-    minOccupancy: 0,
-    factor: 0,
-    isPercentage: 1
-  }
+export function CreateIntervalBaseRate(props: CreateIntervalBaseRateProps) {
+  const [open, setOpen] = useState(false)
+  const createIntervalBaseRateMutation = useCreateIntervalBaseRate()
 
   const methods = useForm({
-    resolver: zodResolver(CreateTimeRuleSchema),
+    resolver: zodResolver(CreateIntervalBaseRateSchema),
     defaultValues
   })
 
@@ -57,15 +48,15 @@ export function CreateTimeRule(props: CreateTimeRuleProps) {
   }
 
   const onSubmit = handleSubmit((values) => {
-    createTimeRuleMutation.mutate(
+    createIntervalBaseRateMutation.mutate(
       {
         data: {
           setting: props.dynamicPricingSettingUuid,
-          hour: values.hour,
-          dayAhead: values.dayAhead,
-          minOccupancy: values.minOccupancy,
-          incrementFactor: values.isPercentage ? 0 : values.factor,
-          percentageFactor: values.isPercentage ? values.factor : 0
+          dates: {
+            startDate: values.startDate,
+            endDate: values.endDate
+          },
+          baseRate: values.baseRate
         }
       },
       {
@@ -83,7 +74,7 @@ export function CreateTimeRule(props: CreateTimeRuleProps) {
             setError('root', {
               type: 'manual',
               message: errorMessage.includes('unique')
-                ? 'This minimum occupancy already exists'
+                ? 'The minimum occupancy already exists'
                 : 'Something went wrong'
             })
           } else {
@@ -132,62 +123,42 @@ export function CreateTimeRule(props: CreateTimeRuleProps) {
           <tr className="border-gray-200">
             <FormProvider {...methods}>
               <td className="py-3 pl-3 text-center text-sm">
-                <div className="flex items-center justify-center gap-2">
-                  <input
-                    {...register('hour', { valueAsNumber: true })}
-                    type="number"
-                    min={0}
-                    max={23}
-                    id="hour"
-                    className="block rounded-md border-0 px-1 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
-                  />
-                  <select
-                    {...register('dayAhead', { valueAsNumber: true })}
-                    id="dayAhead"
-                    className="block w-24 rounded-md border-0 px-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6"
-                    defaultValue="Today"
-                  >
-                    <option value={0}>Today</option>
-                    <option value={1}>Tomorrow</option>
-                  </select>
-                </div>
-              </td>
-              <td className="p-3 text-center text-sm text-gray-500">
                 <div className="flex items-center justify-center">
                   <input
-                    {...register('minOccupancy', { valueAsNumber: true })}
-                    type="number"
+                    {...register('startDate')}
+                    type="date"
+                    id="startDate"
+                    className="block max-w-[8rem] rounded-md border-0 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
+                  />
+                </div>
+              </td>
+              <td className="py-3 pl-3 text-center text-sm">
+                <div className="flex items-center justify-center">
+                  <input
+                    {...register('endDate')}
+                    type="date"
                     min={0}
-                    id="minOccupancy"
-                    className="block max-w-[3rem] rounded-md border-0 px-1 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
+                    id="endDate"
+                    className="block max-w-[8rem] rounded-md border-0 py-1.5 text-center text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
                   />
                 </div>
               </td>
               <td className="p-3 text-center text-sm text-gray-500">
-                <div className="flex items-center justify-center">
-                  <div className="max-w-[8.5rem]">
-                    <div className="relative rounded-md shadow-sm">
-                      <input
-                        {...register('factor', { valueAsNumber: true })}
-                        type="text"
-                        id="factor"
-                        className="block w-full rounded-md border-0 py-1.5 pr-16 text-right text-sm text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
-                        placeholder="+10"
-                      />
-                      <div className="absolute inset-y-0 right-0 flex items-center">
-                        <label htmlFor="factor-type" className="sr-only">
-                          Factor type
-                        </label>
-                        <select
-                          {...register('isPercentage', { valueAsNumber: true })}
-                          id="factor-type"
-                          className="h-full rounded-md border-0 bg-transparent py-0 pl-1 pr-7 text-sm text-gray-500 focus:ring-2 focus:ring-inset focus:ring-blue-600"
-                        >
-                          <option value={0}>{props.currency}</option>
-                          <option value={1}>%</option>
-                        </select>
-                      </div>
-                    </div>
+                <div className="relative rounded-md shadow-sm">
+                  <input
+                    type="text"
+                    {...register('baseRate', { valueAsNumber: true })}
+                    id="baseRate"
+                    autoComplete="baseRate"
+                    className="block w-full rounded-md border-0 py-1.5 pr-12 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:opacity-50 disabled:ring-gray-200 sm:text-sm sm:leading-6"
+                  />
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                    <span
+                      className="text-gray-500 sm:text-sm"
+                      id="baseRateCurrency"
+                    >
+                      {props.currency}
+                    </span>
                   </div>
                 </div>
               </td>
@@ -195,8 +166,8 @@ export function CreateTimeRule(props: CreateTimeRuleProps) {
                 <div className="inline-flex items-center gap-2">
                   <button
                     type="button"
-                    className="rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500"
-                    disabled={createTimeRuleMutation.isLoading}
+                    className="rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-wait disabled:bg-gray-200 disabled:text-gray-500"
+                    disabled={createIntervalBaseRateMutation.isLoading}
                     onClick={onSubmit}
                   >
                     <CheckIcon

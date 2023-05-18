@@ -9,7 +9,6 @@ import * as z from 'zod'
 import { useCreateOccupancyRule } from '../api/createOccupancyRule'
 
 const CreateOccupancyRuleSchema = z.object({
-  setting: z.string().nonempty(),
   minOccupancy: z.number().int().nonnegative(),
   factor: z
     .number()
@@ -30,7 +29,6 @@ export function CreateOccupancyRule(props: CreateOccupancyRuleProps) {
   const createOccupancyRuleMutation = useCreateOccupancyRule()
 
   const defaultValues = {
-    setting: props.dynamicPricingSettingUuid,
     minOccupancy: 0,
     factor: 0,
     isPercentage: 1
@@ -58,7 +56,7 @@ export function CreateOccupancyRule(props: CreateOccupancyRuleProps) {
     createOccupancyRuleMutation.mutate(
       {
         data: {
-          setting: values.setting,
+          setting: props.dynamicPricingSettingUuid,
           minOccupancy: values.minOccupancy,
           incrementFactor: values.isPercentage ? 0 : values.factor,
           percentageFactor: values.isPercentage ? values.factor : 0
