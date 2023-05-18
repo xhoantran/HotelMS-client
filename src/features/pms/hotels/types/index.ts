@@ -7,9 +7,6 @@ export interface IHotel {
   country: string
   currency: string
   timezone: string
-  pms: string
-  pmsId: string
-  pmsApiKey: string
   dynamicPricingSetting: {
     readonly uuid: string
     readonly isEnabled: boolean

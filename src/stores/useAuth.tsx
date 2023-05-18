@@ -44,10 +44,10 @@ const useAuth = create<IAuthState>()(
             email,
             password
           })
-          const { access_token, refresh_token, user } = await response.data
+          const { access, refresh, user } = await response.data
           set({ isAuthenticated: true, user })
-          setAccessToken(access_token)
-          setRefreshToken(refresh_token)
+          setAccessToken(access)
+          setRefreshToken(refresh)
         },
         verifyEmail: async (key) => {
           await axiosAuthInstance.post(
@@ -89,14 +89,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const access_token = localStorage.getItem('accessToken')
-      if (access_token && isValidToken(access_token)) {
-        setAccessToken(access_token)
+      const accessToken = localStorage.getItem('accessToken')
+      if (accessToken && isValidToken(accessToken)) {
+        setAccessToken(accessToken)
         me()
       }
     } catch (error) {
       logout()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return <>{children}</>
 }

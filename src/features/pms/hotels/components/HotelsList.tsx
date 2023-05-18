@@ -39,7 +39,7 @@ export function HotelsList() {
               scope="col"
               className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell"
             >
-              Property ID
+              Timezone
             </th>
             <th
               scope="col"
@@ -65,9 +65,9 @@ export function HotelsList() {
                       'Unkown'
                     )}
                   </dd>
-                  <dt className="sr-only sm:hidden">Property ID</dt>
+                  <dt className="sr-only sm:hidden">Timezone</dt>
                   <dd className="mt-1 truncate text-gray-500 sm:hidden">
-                    {hotel.pmsId}
+                    {hotel.timezone}
                   </dd>
                 </dl>
               </td>
@@ -81,7 +81,7 @@ export function HotelsList() {
                 )}
               </td>
               <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">
-                {hotel.pmsId}
+                {hotel.timezone}
               </td>
               <td className="px-3 py-4 text-sm text-gray-500">
                 {hotel.dynamicPricingSetting.isEnabled ? (
