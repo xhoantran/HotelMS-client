@@ -36,6 +36,12 @@ export const useCreateOccupancyRule = ({
 }: useCreateOccupancyRuleOptions = {}) => {
   const { addNotification } = useNotificationStore()
   return useMutation({
+    onError: () => {
+      addNotification({
+        type: 'error',
+        title: 'Occupancy rule creation failed'
+      })
+    },
     onSuccess: (data) => {
       queryClient.invalidateQueries(['dynamicPricingSetting', data.setting])
       addNotification({

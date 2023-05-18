@@ -14,9 +14,14 @@ import type { IOccupancyBasedTriggerRule } from '../types'
 
 const UpdateOccupancyRuleSchema = z.object({
   setting: z.string().nonempty(),
-  minOccupancy: z.number().int().positive(),
-  factor: z.number().int().positive(),
-  isPercentage: z.boolean()
+  minOccupancy: z.number().int().nonnegative(),
+  factor: z
+    .number()
+    .int()
+    .refine((data) => data !== 0, {
+      message: 'Factor must be different than 0'
+    }),
+  isPercentage: z.number().refine((data) => data === 0 || data === 1)
 })
 
 interface UpdateOccupancyRuleProps {
@@ -77,9 +82,10 @@ export function UpdateOccupancyRule(props: UpdateOccupancyRuleProps) {
               message: err
             })
           } else if (err instanceof AxiosError) {
+            const errorMessage: string = err.response?.data?.detail[0]
             setError('root', {
               type: 'manual',
-              message: err.response?.data?.detail[0].contains('unique')
+              message: errorMessage.includes('unique')
                 ? 'This minimum occupancy already exists'
                 : 'Something went wrong'
             })
@@ -134,7 +140,7 @@ export function UpdateOccupancyRule(props: UpdateOccupancyRuleProps) {
               <td className="py-3 pl-3 text-center text-sm">
                 <div className="flex items-center justify-center">
                   <input
-                    {...register('minOccupancy')}
+                    {...register('minOccupancy', { valueAsNumber: true })}
                     type="number"
                     min={0}
                     id="minOccupancy"
@@ -147,7 +153,7 @@ export function UpdateOccupancyRule(props: UpdateOccupancyRuleProps) {
                   <div className="max-w-[8.5rem]">
                     <div className="relative rounded-md shadow-sm">
                       <input
-                        {...register('factor')}
+                        {...register('factor', { valueAsNumber: true })}
                         type="text"
                         id="factor"
                         className="block w-full rounded-md border-0 py-1.5 pr-16 text-right text-sm text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
@@ -158,7 +164,7 @@ export function UpdateOccupancyRule(props: UpdateOccupancyRuleProps) {
                           Factor type
                         </label>
                         <select
-                          {...register('isPercentage')}
+                          {...register('isPercentage', { valueAsNumber: true })}
                           id="factor-type"
                           className="h-full rounded-md border-0 bg-transparent py-0 pl-1 pr-7 text-sm text-gray-500 focus:ring-2 focus:ring-inset focus:ring-blue-600"
                         >
