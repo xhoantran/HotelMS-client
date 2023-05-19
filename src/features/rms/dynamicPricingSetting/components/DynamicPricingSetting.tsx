@@ -10,6 +10,7 @@ import { TimeRuleList } from 'features/rms/timeRules/components/TimeRuleList'
 import { useDynamicPricingSetting } from '../api/getDynamicPricingSetting'
 import { useUpdateDynamicPricingSetting } from '../api/updateDynamicPricingSetting'
 import { RatePlanPercentageFactorList } from 'features/rms/ratePlanPercentageFactor/components/RatePlanPercentageFactorList'
+import { RecalculateAllRate } from './RecalculateAllRate'
 
 interface DynamicPricingSettingProps {
   dynamicPricingSettingUuid: string
@@ -61,7 +62,7 @@ export function DynamicPricingSetting({
     reset,
     register,
     watch,
-    formState: { errors }
+    formState: { errors, isDirty }
   } = methods
   const isEnabled = watch('isEnabled', false)
 
@@ -81,7 +82,7 @@ export function DynamicPricingSetting({
   }
 
   if (!dynamicPricingSettingQuery.data) {
-    return "Couldn't find dynamic pricing setting"
+    return <span>Couldn&apos;t find dynamic pricing setting</span>
   }
 
   return (
@@ -181,11 +182,13 @@ export function DynamicPricingSetting({
                 />
               </div>
 
-              <div className="sm:col-start-1 ">
+              <div className="col-span-6">
                 <button
                   type="submit"
                   className="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500"
-                  disabled={updateDynamicPricingSettingMutation.isLoading}
+                  disabled={
+                    updateDynamicPricingSettingMutation.isLoading || !isDirty
+                  }
                 >
                   Save
                 </button>
@@ -194,6 +197,11 @@ export function DynamicPricingSetting({
           </div>
         </form>
       </FormProvider>
+
+      <RecalculateAllRate
+        dynamicPricingSettingUuid={dynamicPricingSettingQuery.data.uuid}
+        isEnabled={dynamicPricingSettingQuery.data.isEnabled}
+      />
 
       <IntervalBaseRateList
         intervalBaseRates={dynamicPricingSettingQuery.data.intervalBaseRates}
