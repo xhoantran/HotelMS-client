@@ -30,6 +30,7 @@ const EmailConfirm = () => {
     } else {
       setStatus('error')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
   useEffect(() => {
@@ -44,6 +45,7 @@ const EmailConfirm = () => {
 
       return () => clearTimeout(timer)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status, countdown])
 
   return (

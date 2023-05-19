@@ -6,9 +6,16 @@ interface ToggleProps {
   onChange: (value: boolean) => void
   title: string
   description?: string
+  disabled?: boolean
 }
 
-export function Toggle({ value, onChange, title, description }: ToggleProps) {
+export function Toggle({
+  value,
+  onChange,
+  title,
+  description,
+  disabled
+}: ToggleProps) {
   return (
     <Switch.Group as="div" className="flex items-center justify-between">
       <span className="flex grow flex-col">
@@ -28,8 +35,9 @@ export function Toggle({ value, onChange, title, description }: ToggleProps) {
         onChange={onChange}
         className={clsx(
           value ? 'bg-blue-600' : 'bg-gray-200',
-          'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2'
+          'relative ml-10 inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
         )}
+        disabled={disabled}
       >
         <span
           aria-hidden="true"

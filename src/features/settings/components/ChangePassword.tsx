@@ -1,20 +1,19 @@
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, useForm } from 'react-hook-form'
-import * as Yup from 'yup'
+import * as z from 'zod'
 
 import { useChangePassword } from '../api/ChangePassword'
 
-const ChangePasswordSchema = Yup.object().shape({
-  oldPassword: Yup.string().required('Old password is required'),
-  newPassword1: Yup.string().required('New password is required'),
-  newPassword2: Yup.mixed().test(
-    'match',
-    'Passwords does not match',
-    function () {
-      return this.parent.newPassword1 === this.parent.newPassword2
-    }
-  )
-})
+const ChangePasswordSchema = z
+  .object({
+    oldPassword: z.string().nonempty('Old password is required'),
+    newPassword1: z.string().nonempty('New password is required'),
+    newPassword2: z.string()
+  })
+  .refine((data) => data.newPassword1 === data.newPassword2, {
+    message: "Passwords don't match",
+    path: ['newPassword2']
+  })
 
 export function ChangePassword() {
   const changePasswordMutation = useChangePassword()
@@ -25,7 +24,7 @@ export function ChangePassword() {
       newPassword1: '',
       newPassword2: ''
     },
-    resolver: yupResolver(ChangePasswordSchema)
+    resolver: zodResolver(ChangePasswordSchema)
   })
 
   const {

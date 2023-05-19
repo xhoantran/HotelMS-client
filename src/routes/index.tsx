@@ -29,7 +29,7 @@ const EmailConfirm = Loadable(lazy(() => import('features/auth/EmailConfirm')))
 const DashboardLayout = Loadable(
   lazy(() => import('components/Layouts/Dashboard/DashboardLayout'))
 )
-const Hotels = Loadable(lazy(() => import('features/hotels/routes')))
+const Hotels = Loadable(lazy(() => import('features/pms/hotels/routes')))
 const Settings = Loadable(lazy(() => import('features/settings/routes')))
 
 // MISC

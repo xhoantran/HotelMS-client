@@ -1,27 +1,24 @@
 import { useState } from 'react'
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { AxiosError } from 'axios'
 import Page from 'components/Page'
 import { FormProvider, useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { PATH_AUTH } from 'routes/paths'
 import useAuth from 'stores/useAuth'
-import * as yup from 'yup'
+import * as z from 'zod'
 
 const ResetPassword = () => {
   const [isSuccess, setIsSuccess] = useState(false)
   const { requestResetPassword } = useAuth()
 
+  const ResetPasswordSchema = z.object({
+    email: z.string().email('Please enter a valid email')
+  })
+
   const methods = useForm({
-    resolver: yupResolver(
-      yup.object().shape({
-        email: yup
-          .string()
-          .email("Email isn't valid")
-          .required('Email is required')
-      })
-    ),
+    resolver: zodResolver(ResetPasswordSchema),
     defaultValues: {
       email: ''
     }

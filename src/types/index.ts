@@ -6,3 +6,8 @@ export interface IRuleFactor {
   readonly createdAt: string
   readonly updatedAt: string
 }
+
+export interface IDateRange {
+  startDate: string
+  endDate: string
+}

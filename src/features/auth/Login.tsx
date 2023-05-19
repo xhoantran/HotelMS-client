@@ -1,6 +1,5 @@
 import { EyeIcon, EyeSlashIcon, XCircleIcon } from '@heroicons/react/20/solid'
-import { yupResolver } from '@hookform/resolvers/yup'
-import clsx from 'clsx'
+import { zodResolver } from '@hookform/resolvers/zod'
 import Page from 'components/Page'
 import useIsMountedRef from 'hooks/useIsMountedRef'
 import { useState } from 'react'
@@ -8,7 +7,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { PATH_AUTH } from 'routes/paths'
 import useAuth from 'stores/useAuth'
-import * as Yup from 'yup'
+import * as z from 'zod'
 import { AxiosError } from 'axios'
 
 import { Logo } from 'assets/Logo'
@@ -18,11 +17,12 @@ const Login = () => {
   const isMountedRef = useIsMountedRef()
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string()
+  const LoginSchema = z.object({
+    email: z
+      .string()
       .email('Email must be a valid email address')
-      .required('Email is required'),
-    password: Yup.string().required('Password is required')
+      .nonempty('Email is required'),
+    password: z.string()
   })
 
   const defaultValues = {
@@ -31,7 +31,7 @@ const Login = () => {
   }
 
   const methods = useForm({
-    resolver: yupResolver(LoginSchema),
+    resolver: zodResolver(LoginSchema),
     defaultValues
   })
 
@@ -166,10 +166,7 @@ const Login = () => {
               <div>
                 <button
                   type="submit"
-                  className={clsx(
-                    'flex w-full justify-center rounded-md bg-blue-600 p-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600',
-                    isSubmitting && 'cursor-not-allowed opacity-50'
-                  )}
+                  className="flex w-full justify-center rounded-md bg-blue-600 p-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
                   disabled={isSubmitting}
                 >
                   Sign in

@@ -1,13 +1,25 @@
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/20/solid'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import * as yup from 'yup'
+import * as z from 'zod'
 
 import Page from 'components/Page'
 import { PATH_AUTH } from 'routes/paths'
 import useAuth from 'stores/useAuth'
+
+const ResetPasswordConfirmSchema = z
+  .object({
+    uid: z.string(),
+    token: z.string(),
+    newPassword1: z.string().nonempty('Password is required'),
+    newPassword2: z.string()
+  })
+  .refine((data) => data.newPassword1 === data.newPassword2, {
+    message: "Passwords don't match",
+    path: ['newPassword2']
+  })
 
 export default function ResetPasswordConfirm() {
   const [isSuccess, setIsSuccess] = useState(false)
@@ -18,18 +30,7 @@ export default function ResetPasswordConfirm() {
   const navigate = useNavigate()
 
   const methods = useForm({
-    resolver: yupResolver(
-      yup.object().shape({
-        uid: yup.string().required(),
-        token: yup.string().required(),
-        newPassword1: yup.string().required("Password isn't valid"),
-        newPassword2: yup
-          .mixed()
-          .test('match', 'Passwords does not match', function () {
-            return this.parent.newPassword1 === this.parent.newPassword2
-          })
-      })
-    ),
+    resolver: zodResolver(ResetPasswordConfirmSchema),
     defaultValues: {
       uid: params.get('uid') ?? '',
       token: params.get('token') ?? '',

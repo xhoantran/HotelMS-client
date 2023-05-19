@@ -11,7 +11,10 @@ export const formatNumber = (number: number | string) => {
   return number.toLocaleString()
 }
 
-export const formatTime = (hour: number | string, minute: number | string) => {
+export const formatTime = (
+  hour: number | string,
+  minute: number | string = 0
+) => {
   if (typeof hour === 'string') {
     hour = Number(hour)
   }
@@ -20,5 +23,5 @@ export const formatTime = (hour: number | string, minute: number | string) => {
     minute = Number(minute)
   }
 
-  return dayjs().hour(hour).minute(minute).format('H:mm')
+  return dayjs().hour(hour).minute(minute).format('H:mm A')
 }
