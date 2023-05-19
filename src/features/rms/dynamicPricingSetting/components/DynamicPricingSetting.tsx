@@ -9,6 +9,7 @@ import { OccupancyRuleList } from 'features/rms/occupancyRules/components/Occupa
 import { TimeRuleList } from 'features/rms/timeRules/components/TimeRuleList'
 import { useDynamicPricingSetting } from '../api/getDynamicPricingSetting'
 import { useUpdateDynamicPricingSetting } from '../api/updateDynamicPricingSetting'
+import { RatePlanPercentageFactorList } from 'features/rms/ratePlanPercentageFactor/components/RatePlanPercentageFactorList'
 
 interface DynamicPricingSettingProps {
   dynamicPricingSettingUuid: string
@@ -77,6 +78,10 @@ export function DynamicPricingSetting({
         <Spinner />
       </div>
     )
+  }
+
+  if (!dynamicPricingSettingQuery.data) {
+    return "Couldn't find dynamic pricing setting"
   }
 
   return (
@@ -191,28 +196,31 @@ export function DynamicPricingSetting({
       </FormProvider>
 
       <IntervalBaseRateList
-        intervalBaseRates={
-          dynamicPricingSettingQuery.data?.intervalBaseRates ?? []
-        }
-        dynamicPricingSettingUuid={dynamicPricingSettingQuery.data?.uuid ?? ''}
+        intervalBaseRates={dynamicPricingSettingQuery.data.intervalBaseRates}
+        dynamicPricingSettingUuid={dynamicPricingSettingQuery.data.uuid}
         currency={currency}
       />
 
+      <RatePlanPercentageFactorList
+        roomTypes={dynamicPricingSettingQuery.data.roomTypes}
+        dynamicPricingSettingUuid={dynamicPricingSettingQuery.data.uuid}
+        currency={currency}
+        defaultBaseRate={dynamicPricingSettingQuery.data.defaultBaseRate}
+      />
+
       <OccupancyRuleList
-        isOccupancyBased={
-          dynamicPricingSettingQuery.data?.isOccupancyBased ?? false
-        }
+        isOccupancyBased={dynamicPricingSettingQuery.data.isOccupancyBased}
         occupancyRules={
-          dynamicPricingSettingQuery.data?.occupancyBasedTriggerRules ?? []
+          dynamicPricingSettingQuery.data.occupancyBasedTriggerRules
         }
-        dynamicPricingSettingUuid={dynamicPricingSettingQuery.data?.uuid ?? ''}
+        dynamicPricingSettingUuid={dynamicPricingSettingQuery.data.uuid}
         currency={currency}
       />
 
       <TimeRuleList
-        isTimeBased={dynamicPricingSettingQuery.data?.isTimeBased ?? false}
-        timeRules={dynamicPricingSettingQuery.data?.timeBasedTriggerRules ?? []}
-        dynamicPricingSettingUuid={dynamicPricingSettingQuery.data?.uuid ?? ''}
+        isTimeBased={dynamicPricingSettingQuery.data.isTimeBased}
+        timeRules={dynamicPricingSettingQuery.data.timeBasedTriggerRules}
+        dynamicPricingSettingUuid={dynamicPricingSettingQuery.data.uuid}
         currency={currency}
       />
     </div>
