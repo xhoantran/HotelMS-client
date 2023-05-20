@@ -1,3 +1,5 @@
+import clsx from 'clsx'
+
 import { CreateIntervalBaseRate } from './CreateIntervalBaseRate'
 import { UpdateIntervalBaseRate } from './UpdateIntervalBaseRate'
 
@@ -7,10 +9,12 @@ interface IIntervalBaseRateListProps {
   intervalBaseRates: IIntervalBaseRate[]
   dynamicPricingSettingUuid: string
   currency: string
+  isEnabled: boolean
 }
 
 export function IntervalBaseRateList(props: IIntervalBaseRateListProps) {
-  const { intervalBaseRates, currency, dynamicPricingSettingUuid } = props
+  const { intervalBaseRates, currency, dynamicPricingSettingUuid, isEnabled } =
+    props
 
   return (
     <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
@@ -23,7 +27,12 @@ export function IntervalBaseRateList(props: IIntervalBaseRateListProps) {
         </p>
       </div>
 
-      <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+      <div
+        className={clsx(
+          'grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2',
+          !isEnabled && 'pointer-events-none cursor-not-allowed opacity-50'
+        )}
+      >
         <div className="col-span-6">
           <div className="rounded-md ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-300">

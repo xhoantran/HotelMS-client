@@ -10,10 +10,17 @@ interface ITimeRuleListProps {
   timeRules: ITimeBasedTriggerRule[]
   dynamicPricingSettingUuid: string
   currency: string
+  isEnabled: boolean
 }
 
 export function TimeRuleList(props: ITimeRuleListProps) {
-  const { isTimeBased, timeRules, currency, dynamicPricingSettingUuid } = props
+  const {
+    isTimeBased,
+    timeRules,
+    currency,
+    dynamicPricingSettingUuid,
+    isEnabled
+  } = props
   timeRules.sort(
     (a, b) =>
       a.hour - b.hour ||
@@ -37,7 +44,8 @@ export function TimeRuleList(props: ITimeRuleListProps) {
       <div
         className={clsx(
           'grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2',
-          !isTimeBased && 'pointer-events-none cursor-not-allowed opacity-50'
+          (!isTimeBased || !isEnabled) &&
+            'pointer-events-none cursor-not-allowed opacity-50'
         )}
       >
         <div className="col-span-6">

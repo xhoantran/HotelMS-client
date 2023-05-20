@@ -209,6 +209,7 @@ export function DynamicPricingSetting({
         intervalBaseRates={dynamicPricingSettingQuery.data.intervalBaseRates}
         dynamicPricingSettingUuid={dynamicPricingSettingQuery.data.uuid}
         currency={currency}
+        isEnabled={dynamicPricingSettingQuery.data.isEnabled}
       />
 
       <RatePlanPercentageFactorList
@@ -226,6 +227,7 @@ export function DynamicPricingSetting({
         }
         dynamicPricingSettingUuid={dynamicPricingSettingQuery.data.uuid}
         currency={currency}
+        isEnabled={dynamicPricingSettingQuery.data.isEnabled}
       />
 
       <TimeRuleList
@@ -233,6 +235,7 @@ export function DynamicPricingSetting({
         timeRules={dynamicPricingSettingQuery.data.timeBasedTriggerRules}
         dynamicPricingSettingUuid={dynamicPricingSettingQuery.data.uuid}
         currency={currency}
+        isEnabled={dynamicPricingSettingQuery.data.isEnabled}
       />
     </div>
   )

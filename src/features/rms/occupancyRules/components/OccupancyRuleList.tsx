@@ -10,6 +10,7 @@ interface IOccupancyRuleListProps {
   occupancyRules: IOccupancyBasedTriggerRule[]
   dynamicPricingSettingUuid: string
   currency: string
+  isEnabled: boolean
 }
 
 export function OccupancyRuleList(props: IOccupancyRuleListProps) {
@@ -17,7 +18,8 @@ export function OccupancyRuleList(props: IOccupancyRuleListProps) {
     isOccupancyBased,
     occupancyRules,
     currency,
-    dynamicPricingSettingUuid
+    dynamicPricingSettingUuid,
+    isEnabled
   } = props
   occupancyRules.sort((a, b) => a.minOccupancy - b.minOccupancy)
 
@@ -37,7 +39,7 @@ export function OccupancyRuleList(props: IOccupancyRuleListProps) {
       <div
         className={clsx(
           'grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2',
-          !isOccupancyBased &&
+          (!isOccupancyBased || !isEnabled) &&
             'pointer-events-none cursor-not-allowed opacity-50'
         )}
       >

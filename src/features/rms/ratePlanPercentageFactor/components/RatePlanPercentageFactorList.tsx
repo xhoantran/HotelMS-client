@@ -1,5 +1,7 @@
-import { UpdateRatePlanPercentageFactor } from './UpdateRatePlanPercentageFactor'
 import { Fragment } from 'react'
+import clsx from 'clsx'
+
+import { UpdateRatePlanPercentageFactor } from './UpdateRatePlanPercentageFactor'
 
 import type { IRoomTypeRMS } from '../types'
 
@@ -8,13 +10,19 @@ interface IRatePlanPercentageFactorListProps {
   dynamicPricingSettingUuid: string
   defaultBaseRate: number
   currency: string
+  isEnabled: boolean
 }
 
 export function RatePlanPercentageFactorList(
   props: IRatePlanPercentageFactorListProps
 ) {
-  const { roomTypes, dynamicPricingSettingUuid, defaultBaseRate, currency } =
-    props
+  const {
+    roomTypes,
+    dynamicPricingSettingUuid,
+    defaultBaseRate,
+    currency,
+    isEnabled
+  } = props
 
   return (
     <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
@@ -28,7 +36,12 @@ export function RatePlanPercentageFactorList(
         </p>
       </div>
 
-      <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+      <div
+        className={clsx(
+          'grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2',
+          !isEnabled && 'pointer-events-none cursor-not-allowed opacity-50'
+        )}
+      >
         <div className="col-span-6">
           <div className="rounded-md ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-300">
@@ -87,6 +100,16 @@ export function RatePlanPercentageFactorList(
                     )}
                   </Fragment>
                 ))}
+                {roomTypes.length === 0 && (
+                  <tr className="border-t border-gray-200">
+                    <td
+                      colSpan={4}
+                      className="py-4 text-center text-sm text-gray-500"
+                    >
+                      No room types found
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
