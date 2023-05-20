@@ -12,9 +12,7 @@ import { useUpdateRatePlanPercentageFactor } from '../api/updateRatePlanPercenta
 import type { IRatePlanRMS } from '../types'
 
 const UpdateRatePlanPercentageFactorSchema = z.object({
-  percentageFactor: z.number().refine((data) => data !== 0, {
-    message: 'Percentage factor cannot be 0'
-  })
+  percentageFactor: z.number().int().min(-100)
 })
 
 interface UpdateRatePlanPercentageFactorProps {
