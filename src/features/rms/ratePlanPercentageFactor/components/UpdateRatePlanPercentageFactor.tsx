@@ -44,11 +44,11 @@ export function UpdateRatePlanPercentageFactor(
     register,
     handleSubmit,
     setError,
-    watch,
+    // watch,
     formState: { errors }
   } = methods
 
-  const percentageFactor = watch('percentageFactor', 0)
+  // const percentageFactor = watch('percentageFactor', 0)
 
   const onSubmit = handleSubmit((values) => {
     updateRatePlanPercentageFactorMutation.mutate(
@@ -150,10 +150,10 @@ export function UpdateRatePlanPercentageFactor(
                   </div>
                 </div>
               </td>
-              <td className="hidden p-3 text-center text-sm text-gray-500 sm:table-cell">
+              {/* <td className="hidden p-3 text-center text-sm text-gray-500 sm:table-cell">
                 {props.defaultBaseRate * (1 + percentageFactor / 100)}{' '}
                 {props.currency}
-              </td>
+              </td> */}
               <td className="p-3 text-right text-sm font-medium">
                 <div className="inline-flex items-center gap-2">
                   <button
@@ -208,12 +208,12 @@ export function UpdateRatePlanPercentageFactor(
                 currency={props.currency}
               />
             </td>
-            <td className="hidden p-3 text-center text-sm text-gray-500 sm:table-cell">
+            {/* <td className="hidden p-3 text-center text-sm text-gray-500 sm:table-cell">
               {props.defaultBaseRate *
                 (1 +
                   props.ratePlanPercentageFactor.percentageFactor / 100)}{' '}
               {props.currency}
-            </td>
+            </td> */}
             <td className="w-fit p-3 text-right text-sm font-medium">
               <div className="inline-flex  items-center gap-2">
                 <button

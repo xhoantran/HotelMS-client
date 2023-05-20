@@ -55,17 +55,11 @@ export function RatePlanPercentageFactorList(
                   </th>
                   <th
                     scope="col"
-                    className="w-1/4 p-3 text-center text-sm font-semibold text-gray-900"
+                    className="p-3 text-center text-sm font-semibold text-gray-900"
                   >
                     Percentage Factor
                   </th>
-                  <th
-                    scope="col"
-                    className="hidden w-1/4 p-3 text-center text-sm font-semibold text-gray-900 sm:table-cell"
-                  >
-                    Base Rate
-                  </th>
-                  <th scope="col" className="p-3">
+                  <th scope="col" className="w-1/3 p-3">
                     <span className="sr-only">Select</span>
                   </th>
                 </tr>
