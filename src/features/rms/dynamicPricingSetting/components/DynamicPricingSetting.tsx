@@ -64,6 +64,8 @@ export function DynamicPricingSetting({
     watch,
     formState: { errors, isDirty }
   } = methods
+
+  // For the form only
   const isEnabled = watch('isEnabled', false)
 
   const onSubmit = handleSubmit((values) => {
@@ -100,7 +102,7 @@ export function DynamicPricingSetting({
               </p>
             </div>
             <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
-              <div className="sm:col-span-6">
+              <div className="col-span-6">
                 <Controller
                   control={control}
                   name="isEnabled"
@@ -114,7 +116,7 @@ export function DynamicPricingSetting({
                   )}
                 />
               </div>
-              <div className="col-span-full sm:flex sm:items-center sm:justify-between">
+              <div className="col-span-6 sm:flex sm:items-center sm:justify-between">
                 <span className="flex grow flex-col">
                   <label
                     htmlFor="defaultBaseRate"
@@ -151,7 +153,7 @@ export function DynamicPricingSetting({
                   </div>
                 </div>
               </div>
-              <div className="sm:col-span-6 sm:col-start-1">
+              <div className="col-span-6">
                 <Controller
                   control={control}
                   name="isOccupancyBased"
@@ -166,7 +168,7 @@ export function DynamicPricingSetting({
                   )}
                 />
               </div>
-              <div className="sm:col-span-6 sm:col-start-1">
+              <div className="col-span-6">
                 <Controller
                   control={control}
                   name="isTimeBased"
@@ -214,6 +216,7 @@ export function DynamicPricingSetting({
         dynamicPricingSettingUuid={dynamicPricingSettingQuery.data.uuid}
         currency={currency}
         defaultBaseRate={dynamicPricingSettingQuery.data.defaultBaseRate}
+        isEnabled={dynamicPricingSettingQuery.data.isEnabled}
       />
 
       <OccupancyRuleList
