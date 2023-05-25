@@ -35,9 +35,8 @@ export function TimeRuleList(props: ITimeRuleListProps) {
           Time Based Trigger Rules
         </h2>
         <p className="mt-1 text-sm leading-6 text-gray-600">
-          Rate will be applied when the number of occupied rooms above the
-          specified threshold. The rule with the highest threshold will be
-          applied.
+          Change rate if the number of occupied rooms is above the specified
+          threshold at the specified time.
         </p>
       </div>
 

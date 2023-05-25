@@ -30,9 +30,8 @@ export function OccupancyRuleList(props: IOccupancyRuleListProps) {
           Occupancy Based Trigger Rules
         </h2>
         <p className="mt-1 text-sm leading-6 text-gray-600">
-          Rate will be applied when the number of occupied rooms above the
-          specified threshold. The rule with the highest threshold will be
-          applied.
+          Change the rates if the number of occupied rooms exceeds a specified
+          occupancy threshold.
         </p>
       </div>
 
