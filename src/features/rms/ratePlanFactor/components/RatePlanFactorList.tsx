@@ -1,11 +1,11 @@
 import { Fragment } from 'react'
 import clsx from 'clsx'
 
-import { UpdateRatePlanPercentageFactor } from './UpdateRatePlanPercentageFactor'
+import { UpdateRatePlanFactor } from './UpdateRatePlanFactor'
 
 import type { IRoomTypeRMS } from '../types'
 
-interface IRatePlanPercentageFactorListProps {
+interface IRatePlanFactorListProps {
   roomTypes: IRoomTypeRMS[]
   dynamicPricingSettingUuid: string
   defaultBaseRate: number
@@ -13,9 +13,7 @@ interface IRatePlanPercentageFactorListProps {
   isEnabled: boolean
 }
 
-export function RatePlanPercentageFactorList(
-  props: IRatePlanPercentageFactorListProps
-) {
+export function RatePlanFactorList(props: IRatePlanFactorListProps) {
   const {
     roomTypes,
     dynamicPricingSettingUuid,
@@ -73,9 +71,9 @@ export function RatePlanPercentageFactorList(
                       <td colSpan={3} className="bg-gray-50" />
                     </tr>
                     {roomType.ratePlans.map((ratePlan) => (
-                      <UpdateRatePlanPercentageFactor
+                      <UpdateRatePlanFactor
                         key={ratePlan.uuid}
-                        ratePlanPercentageFactor={ratePlan}
+                        ratePlanFactor={ratePlan}
                         dynamicPricingSettingUuid={dynamicPricingSettingUuid}
                         defaultBaseRate={defaultBaseRate}
                         currency={currency}

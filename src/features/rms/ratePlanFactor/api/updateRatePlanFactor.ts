@@ -6,30 +6,30 @@ import { useNotificationStore } from 'stores/notifications'
 import camelize from 'utils/camalize'
 import snakify from 'utils/snakify'
 
-export type UpdateRatePlanPercentageFactorDTO = {
+export type UpdateRatePlanFactorDTO = {
   data: {
     percentageFactor: number
   }
   ratePlanUuid: string
 }
 
-export const updateRatePlanPercentageFactor = async (
-  ratePlanPercentageFactorDto: UpdateRatePlanPercentageFactorDTO
+export const updateRatePlanFactor = async (
+  ratePlanFactorDto: UpdateRatePlanFactorDTO
 ) => {
   const { data } = await axiosInstance.patch(
-    `/api/v1/rms/rate-plan-percentage-factor/${ratePlanPercentageFactorDto.ratePlanUuid}/`,
-    snakify(ratePlanPercentageFactorDto.data)
+    `/api/v1/rms/rate-plan-percentage-factor/${ratePlanFactorDto.ratePlanUuid}/`,
+    snakify(ratePlanFactorDto.data)
   )
   return camelize(data)
 }
 
-type useUpdateRatePlanPercentageFactorOptions = {
-  config?: MutationConfig<typeof updateRatePlanPercentageFactor>
+type useUpdateRatePlanFactorOptions = {
+  config?: MutationConfig<typeof updateRatePlanFactor>
 }
 
-export const useUpdateRatePlanPercentageFactor = ({
+export const useUpdateRatePlanFactor = ({
   config
-}: useUpdateRatePlanPercentageFactorOptions = {}) => {
+}: useUpdateRatePlanFactorOptions = {}) => {
   const { addNotification } = useNotificationStore()
   return useMutation({
     onSuccess: () => {
@@ -39,6 +39,6 @@ export const useUpdateRatePlanPercentageFactor = ({
       })
     },
     ...config,
-    mutationFn: updateRatePlanPercentageFactor
+    mutationFn: updateRatePlanFactor
   })
 }

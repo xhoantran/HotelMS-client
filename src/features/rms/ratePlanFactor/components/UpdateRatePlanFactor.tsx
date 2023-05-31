@@ -7,7 +7,7 @@ import * as z from 'zod'
 
 import { FactorBadge } from 'components/FactorBadge'
 import { queryClient } from 'lib/react-query'
-import { useUpdateRatePlanPercentageFactor } from '../api/updateRatePlanPercentageFactor'
+import { useUpdateRatePlanFactor } from '../api/updateRatePlanFactor'
 
 import type { IRatePlanRMS } from '../types'
 
@@ -15,26 +15,23 @@ const UpdateRatePlanPercentageFactorSchema = z.object({
   percentageFactor: z.number().int().min(-100)
 })
 
-interface UpdateRatePlanPercentageFactorProps {
-  ratePlanPercentageFactor: IRatePlanRMS
+interface UpdateRatePlanFactorProps {
+  ratePlanFactor: IRatePlanRMS
   dynamicPricingSettingUuid: string
   defaultBaseRate: number
   currency: string
 }
 
-export function UpdateRatePlanPercentageFactor(
-  props: UpdateRatePlanPercentageFactorProps
-) {
+export function UpdateRatePlanFactor(props: UpdateRatePlanFactorProps) {
   const [open, setOpen] = useState(false)
-  const updateRatePlanPercentageFactorMutation =
-    useUpdateRatePlanPercentageFactor()
+  const updateRatePlanFactorMutation = useUpdateRatePlanFactor()
 
   const defaultValues = {
-    percentageFactor: props.ratePlanPercentageFactor.percentageFactor
+    percentageFactor: props.ratePlanFactor.percentageFactor
   }
 
   const methods = useForm({
-    resolver: zodResolver(UpdateRatePlanPercentageFactorSchema),
+    resolver: zodResolver(UpdateRatePlanFactorSchema),
     defaultValues
   })
 
@@ -49,12 +46,12 @@ export function UpdateRatePlanPercentageFactor(
   // const percentageFactor = watch('percentageFactor', 0)
 
   const onSubmit = handleSubmit((values) => {
-    updateRatePlanPercentageFactorMutation.mutate(
+    updateRatePlanFactorMutation.mutate(
       {
         data: {
           percentageFactor: values.percentageFactor
         },
-        ratePlanUuid: props.ratePlanPercentageFactor.uuid
+        ratePlanUuid: props.ratePlanFactor.uuid
       },
       {
         onSuccess: () => {
@@ -120,7 +117,7 @@ export function UpdateRatePlanPercentageFactor(
             <FormProvider {...methods}>
               <td className="py-3 pl-3 text-left text-sm sm:pl-10">
                 <div className="truncate font-medium text-gray-900">
-                  {props.ratePlanPercentageFactor.name}
+                  {props.ratePlanFactor.name}
                 </div>
               </td>
               <td className="p-3 text-center text-sm">
@@ -157,7 +154,7 @@ export function UpdateRatePlanPercentageFactor(
                   <button
                     type="button"
                     className="rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500"
-                    disabled={updateRatePlanPercentageFactorMutation.isLoading}
+                    disabled={updateRatePlanFactorMutation.isLoading}
                     onClick={onSubmit}
                   >
                     <CheckIcon
@@ -166,7 +163,7 @@ export function UpdateRatePlanPercentageFactor(
                     />
                     <span className="hidden lg:block">Save</span>
                     <span className="sr-only">
-                      , {props.ratePlanPercentageFactor.uuid}
+                      , {props.ratePlanFactor.uuid}
                     </span>
                   </button>
                   <button
@@ -180,7 +177,7 @@ export function UpdateRatePlanPercentageFactor(
                     />
                     <span className="hidden lg:block">Cancel</span>
                     <span className="sr-only">
-                      , {props.ratePlanPercentageFactor.uuid}
+                      , {props.ratePlanFactor.uuid}
                     </span>
                   </button>
                 </div>
@@ -191,17 +188,17 @@ export function UpdateRatePlanPercentageFactor(
       ) : (
         <>
           <tr
-            key={props.ratePlanPercentageFactor.uuid}
+            key={props.ratePlanFactor.uuid}
             className="border-t border-gray-200"
           >
             <td className="py-3 pl-3 text-left text-sm sm:pl-10">
               <div className="truncate font-medium text-gray-900">
-                {props.ratePlanPercentageFactor.name}
+                {props.ratePlanFactor.name}
               </div>
             </td>
             <td className="p-3 text-center text-sm text-gray-500">
               <FactorBadge
-                percentage={props.ratePlanPercentageFactor.percentageFactor}
+                percentage={props.ratePlanFactor.percentageFactor}
                 increment={0}
                 currency={props.currency}
               />
@@ -209,7 +206,7 @@ export function UpdateRatePlanPercentageFactor(
             {/* <td className="hidden p-3 text-center text-sm text-gray-500 sm:table-cell">
               {props.defaultBaseRate *
                 (1 +
-                  props.ratePlanPercentageFactor.percentageFactor / 100)}{' '}
+                  props.ratePlanFactor.percentageFactor / 100)}{' '}
               {props.currency}
             </td> */}
             <td className="w-fit p-3 text-right text-sm font-medium">
@@ -224,9 +221,7 @@ export function UpdateRatePlanPercentageFactor(
                     aria-hidden="true"
                   />
                   <span className="hidden lg:block">Edit</span>
-                  <span className="sr-only">
-                    , {props.ratePlanPercentageFactor.uuid}
-                  </span>
+                  <span className="sr-only">, {props.ratePlanFactor.uuid}</span>
                 </button>
               </div>
             </td>
