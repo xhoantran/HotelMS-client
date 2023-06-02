@@ -13,7 +13,9 @@ export const FactorBadge = ({
   const className =
     percentage > 0 || increment > 0
       ? 'bg-green-50 text-green-700 ring-green-600/20'
-      : 'bg-red-50 text-red-700 ring-red-600/10'
+      : percentage < 0 || increment < 0
+      ? 'bg-red-50 text-red-700 ring-red-600/10'
+      : 'bg-yellow-50 text-yellow-700 ring-yellow-600/10'
   const sign = percentage > 0 || increment > 0 ? '+' : ''
   // TODO: We prioritize percentage over increment, but we should have a parameter to choose
   const activeFactor =

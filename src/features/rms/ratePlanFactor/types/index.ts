@@ -2,6 +2,7 @@ export interface IRatePlanRMS {
   uuid: string
   name: string
   percentageFactor: number
+  incrementFactor: number
 }
 
 export interface IRoomTypeRMS {

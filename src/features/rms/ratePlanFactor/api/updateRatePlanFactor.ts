@@ -9,6 +9,7 @@ import snakify from 'utils/snakify'
 export type UpdateRatePlanFactorDTO = {
   data: {
     percentageFactor: number
+    incrementFactor: number
   }
   ratePlanUuid: string
 }

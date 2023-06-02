@@ -7,9 +7,9 @@ import { Toggle } from 'components/Elements/Toggle'
 import { IntervalBaseRateList } from 'features/rms/intervalBaseRates/components/IntervalBaseRateList'
 import { OccupancyRuleList } from 'features/rms/occupancyRules/components/OccupancyRuleList'
 import { TimeRuleList } from 'features/rms/timeRules/components/TimeRuleList'
-import { useDynamicPricingSetting } from '../api/getDynamicPricingSetting'
+import { useGetDynamicPricingSetting } from '../api/getDynamicPricingSetting'
 import { useUpdateDynamicPricingSetting } from '../api/updateDynamicPricingSetting'
-import { RatePlanPercentageFactorList } from 'features/rms/ratePlanPercentageFactor/components/RatePlanPercentageFactorList'
+import { RatePlanFactorList } from 'features/rms/ratePlanFactor/components/RatePlanFactorList'
 import { RecalculateAllRate } from './RecalculateAllRate'
 
 interface DynamicPricingSettingProps {
@@ -36,7 +36,7 @@ export function DynamicPricingSetting({
   dynamicPricingSettingUuid,
   currency
 }: DynamicPricingSettingProps) {
-  const dynamicPricingSettingQuery = useDynamicPricingSetting({
+  const dynamicPricingSettingQuery = useGetDynamicPricingSetting({
     dynamicPricingSettingUuid,
     config: {
       onSuccess: (data) => {
@@ -212,7 +212,7 @@ export function DynamicPricingSetting({
         isEnabled={dynamicPricingSettingQuery.data.isEnabled}
       />
 
-      <RatePlanPercentageFactorList
+      <RatePlanFactorList
         roomTypes={dynamicPricingSettingQuery.data.roomTypes}
         dynamicPricingSettingUuid={dynamicPricingSettingQuery.data.uuid}
         currency={currency}

@@ -54,7 +54,7 @@ export function RatePlanFactorList(props: IRatePlanFactorListProps) {
                     scope="col"
                     className="p-3 text-center text-sm font-semibold text-gray-900"
                   >
-                    Percentage Factor
+                    Factor
                   </th>
                   <th scope="col" className="w-1/3 p-3">
                     <span className="sr-only">Select</span>

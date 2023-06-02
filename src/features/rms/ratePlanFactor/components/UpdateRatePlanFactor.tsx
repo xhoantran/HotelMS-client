@@ -11,8 +11,9 @@ import { useUpdateRatePlanFactor } from '../api/updateRatePlanFactor'
 
 import type { IRatePlanRMS } from '../types'
 
-const UpdateRatePlanPercentageFactorSchema = z.object({
-  percentageFactor: z.number().int().min(-100)
+const UpdateRatePlanFactorSchema = z.object({
+  factor: z.number().int(),
+  isPercentage: z.number().refine((data) => data === 0 || data === 1)
 })
 
 interface UpdateRatePlanFactorProps {
@@ -27,7 +28,11 @@ export function UpdateRatePlanFactor(props: UpdateRatePlanFactorProps) {
   const updateRatePlanFactorMutation = useUpdateRatePlanFactor()
 
   const defaultValues = {
-    percentageFactor: props.ratePlanFactor.percentageFactor
+    factor:
+      props.ratePlanFactor.percentageFactor !== 0
+        ? props.ratePlanFactor.percentageFactor
+        : props.ratePlanFactor.incrementFactor,
+    isPercentage: props.ratePlanFactor.percentageFactor !== 0 ? 1 : 0
   }
 
   const methods = useForm({
@@ -49,7 +54,8 @@ export function UpdateRatePlanFactor(props: UpdateRatePlanFactorProps) {
     updateRatePlanFactorMutation.mutate(
       {
         data: {
-          percentageFactor: values.percentageFactor
+          percentageFactor: values.isPercentage ? values.factor : 0,
+          incrementFactor: values.isPercentage ? 0 : values.factor
         },
         ratePlanUuid: props.ratePlanFactor.uuid
       },
@@ -120,35 +126,34 @@ export function UpdateRatePlanFactor(props: UpdateRatePlanFactorProps) {
                   {props.ratePlanFactor.name}
                 </div>
               </td>
-              <td className="p-3 text-center text-sm">
+              <td className="p-3 text-center text-sm text-gray-500">
                 <div className="flex items-center justify-center">
-                  <div className="max-w-[5rem]">
+                  <div className="max-w-[8.5rem]">
                     <div className="relative rounded-md shadow-sm">
                       <input
-                        {...register('percentageFactor', {
-                          valueAsNumber: true
-                        })}
+                        {...register('factor', { valueAsNumber: true })}
                         type="text"
-                        id="percentageFactor"
-                        className="block w-full rounded-md border-0 py-1 pr-8 text-right text-sm text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
+                        id="factor"
+                        className="block w-full rounded-md border-0 py-1.5 pr-16 text-right text-sm text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:leading-6"
                         placeholder="+10"
                       />
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                        <span
-                          className="text-gray-500 sm:text-sm"
-                          id="price-currency"
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="factor-type" className="sr-only">
+                          Factor type
+                        </label>
+                        <select
+                          {...register('isPercentage', { valueAsNumber: true })}
+                          id="factor-type"
+                          className="h-full rounded-md border-0 bg-transparent py-0 pl-1 pr-7 text-sm text-gray-500 focus:ring-2 focus:ring-inset focus:ring-blue-600"
                         >
-                          %
-                        </span>
+                          <option value={0}>{props.currency}</option>
+                          <option value={1}>%</option>
+                        </select>
                       </div>
                     </div>
                   </div>
                 </div>
               </td>
-              {/* <td className="hidden p-3 text-center text-sm text-gray-500 sm:table-cell">
-                {props.defaultBaseRate * (1 + percentageFactor / 100)}{' '}
-                {props.currency}
-              </td> */}
               <td className="p-3 text-right text-sm font-medium">
                 <div className="inline-flex items-center gap-2">
                   <button
@@ -199,16 +204,10 @@ export function UpdateRatePlanFactor(props: UpdateRatePlanFactorProps) {
             <td className="p-3 text-center text-sm text-gray-500">
               <FactorBadge
                 percentage={props.ratePlanFactor.percentageFactor}
-                increment={0}
+                increment={props.ratePlanFactor.incrementFactor}
                 currency={props.currency}
               />
             </td>
-            {/* <td className="hidden p-3 text-center text-sm text-gray-500 sm:table-cell">
-              {props.defaultBaseRate *
-                (1 +
-                  props.ratePlanFactor.percentageFactor / 100)}{' '}
-              {props.currency}
-            </td> */}
             <td className="w-fit p-3 text-right text-sm font-medium">
               <div className="inline-flex  items-center gap-2">
                 <button

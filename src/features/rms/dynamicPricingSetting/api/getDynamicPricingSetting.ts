@@ -20,15 +20,15 @@ export const getDynamicPricingSetting = async ({
 
 type QueryFnType = typeof getDynamicPricingSetting
 
-type UseDynamicPricingSettingOptions = {
+type useGetDynamicPricingSettingOptions = {
   dynamicPricingSettingUuid: string
   config?: QueryConfig<QueryFnType>
 }
 
-export const useDynamicPricingSetting = ({
+export const useGetDynamicPricingSetting = ({
   dynamicPricingSettingUuid,
   config
-}: UseDynamicPricingSettingOptions) => {
+}: useGetDynamicPricingSettingOptions) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
     queryKey: ['dynamicPricingSetting', dynamicPricingSettingUuid],
