@@ -49,7 +49,7 @@ const EmailConfirm = () => {
   }, [status, countdown])
 
   return (
-    <Page title="Confirm email - Hanz">
+    <Page title="Confirm email - HotelMS">
       <div className="mx-auto flex min-h-full w-full max-w-sm flex-col items-center justify-center lg:w-96">
         {status === 'loading' ? (
           <>

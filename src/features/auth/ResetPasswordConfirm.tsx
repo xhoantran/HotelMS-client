@@ -70,7 +70,7 @@ export default function ResetPasswordConfirm() {
   })
 
   return (
-    <Page title="Reset Password - Hanz">
+    <Page title="Reset Password - HotelMS">
       <div className="mx-auto flex min-h-full w-full max-w-sm flex-col items-center justify-center lg:w-96">
         <h2 className="text-3xl font-bold text-gray-900">Reset Password</h2>
 
