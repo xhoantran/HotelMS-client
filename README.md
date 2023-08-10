@@ -1,19 +1,6 @@
-# React Tailwindcss Boilerplate build with Vite
+# Hotel Management System
 
-This is a boilerplate build with Vite, React 18, TypeScript, Vitest, Testing Library, TailwindCSS 3, Eslint and Prettier.
-
-## What is inside?
-
-This project uses many tools like:
-
-- [Vite](https://vitejs.dev)
-- [ReactJS](https://reactjs.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Vitest](https://vitest.dev)
-- [Testing Library](https://testing-library.com)
-- [Tailwindcss](https://tailwindcss.com)
-- [Eslint](https://eslint.org)
-- [Prettier](https://prettier.io)
+Designed solution to streamline and automate various operations within a hotel or hospitality establishment. It encompasses a range of functionalities, including reservations, check-ins, check-outs, room assignments, billing, guest profiles, inventory management, housekeeping coordination, and reporting.
 
 ## Getting Started
 
